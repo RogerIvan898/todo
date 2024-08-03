@@ -1,11 +1,10 @@
 .inputContainer {
   display: flex;
   justify-content: space-around;
-  width: 400px;
-  height: 48px;
-  border-radius: 32px;
+  min-width: 100px;
+  min-height: 48px;
+  border-radius: 48px;
   border: 3px solid darkgrey;
-  padding: 8px;
   transition: 0.2s all;
 }
 .inputContainer.focused {
@@ -16,17 +15,19 @@
   outline: none;
   width: 90%;
   border: none;
+  border-radius: 32px;
+  padding: 0 8px;
 }
 
 .submit {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   width: 10%;
   cursor: pointer;
 }
 .submit span {
-  font-size: 2.2rem;
+  font-size: 300%;
   color: darkgrey;
   transition: 0.2s color;
 }

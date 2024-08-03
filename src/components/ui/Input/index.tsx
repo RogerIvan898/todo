@@ -1,26 +1,38 @@
 'use client'
-import {FC, HTMLProps, useState} from 'react';
+import {FC, HTMLProps, useRef, useState} from 'react';
 import style from './input.module.scss'
 
-const Input: FC<HTMLProps<HTMLInputElement>> = (props) => {
+interface InputProps extends HTMLProps<HTMLInputElement>{}
+
+const Input: FC<InputProps> = (props) => {
   const [isFocused, setIsFocused] = useState(false)
 
-  const { className, id, ...otherProps } = props
+  const { className, id, style: innerStyle, ...inputProps } = props
 
-  const applyFocusedStyle = () => {
-    return isFocused ? style.focused : ''
+  const handleSubmit = (e: KeyboardEvent) => {
+    if(e.key === 'Enter' && props.onSubmit){
+      e.preventDefault()
+      props.onSubmit()
+    }
   }
+  const applyFocusedStyle = () => isFocused ? style.focused : ''
 
   return (
-    <div id={id} className={`${style.inputContainer} ${applyFocusedStyle()}`}>
+    <div id={id}
+         className={`${style.inputContainer} ${applyFocusedStyle()} ${className ?? ''}`}
+         style={innerStyle}
+    >
       <input
         className={style.input}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        {...otherProps}
+        onKeyPress={handleSubmit}
+        {...inputProps}
       />
       <div className={style.submit}>
-        <span className={`material-symbols-outlined ${applyFocusedStyle()}`}>
+        <span className={`material-symbols-outlined ${applyFocusedStyle()}`}
+          onClick={props?.onSubmit}
+        >
           check_circle
         </span>
       </div>

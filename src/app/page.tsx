@@ -1,17 +1,48 @@
-import Head from 'next/head'
+'use client'
+
 import Input from "../components/ui/Input/index";
+import Container from "../components/ui/Container/index";
+import style from './page.module.scss'
+import {v4 as uuidv4} from 'uuid'
+import {useState} from "react";
+
+interface INote{
+  id: string,
+  content: string
+}
 
 export default function Home() {
+  const [notes, setNotes] = useState<INote[]>([])
+  const [inputText, setInputText] = useState('')
+
+  const createNote = () => {
+    if(inputText.trim() === ''){
+      return
+    }
+
+    setNotes([...notes, {
+      id: uuidv4(),
+      content: inputText
+    }])
+
+    setInputText('')
+  }
+
   return (
     <>
-      <Head>
-        <title>To do</title>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-      </Head>
-      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-        <Input placeholder={'Text'}/>
+      <div className={style.container}>
+        <Input
+          placeholder={'Text'}
+          className={style.input}
+          value={inputText}
+          onChange={(e) => setInputText(e.currentTarget.value)}
+          onSubmit={createNote}
+        />
+        { notes.map(note =>
+          <Container key={note.id} className={style.element}>
+            {note.content}
+          </Container>
+        ) }
       </div>
     </>
   );
