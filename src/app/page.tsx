@@ -1,12 +1,12 @@
 'use client'
 
-import Input from "../components/ui/Input/index";
-import Container from "../components/ui/Container/index";
+import Input from "../components/ui/input/index";
+import Container from "../components/ui/container/index";
 import style from './page.module.scss'
 import {v4 as uuidv4} from 'uuid'
 import {useState} from "react";
 
-interface INote{
+export interface INote{
   id: string,
   content: string
 }
