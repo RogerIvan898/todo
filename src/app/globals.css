@@ -27,6 +27,10 @@ p{
   white-space: pre;
 }
 
+div{
+  white-space: pre;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

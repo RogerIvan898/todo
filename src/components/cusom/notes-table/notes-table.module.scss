@@ -1,0 +1,57 @@
+@mixin tablePropertyUnit{
+  display: flex;
+  align-items: center;
+  border-right: 1px solid darkgrey;
+  padding: 8px;
+  color: gray;
+}
+
+.container{
+  span{
+    user-select: none;
+  }
+
+  .properties{
+    display: flex;
+    border-top: 1.8px solid darkgrey;
+    border-bottom: 1.8px solid darkgrey;
+    width: 100%;
+
+    .title{
+      @include tablePropertyUnit;
+      width: 24%;
+    }
+
+    .folder{
+      @include tablePropertyUnit;
+      width: 15%;
+    }
+
+    .created{
+      @include tablePropertyUnit;
+      width: 30%;
+    }
+
+    .type{
+      @include tablePropertyUnit;
+      width: 15%;
+    }
+    .bookmark {
+      @include tablePropertyUnit;
+      width: 15%;
+      border-right: none;
+    }
+  }
+
+  .createNote{
+    @include tablePropertyUnit;
+    border-bottom: 1.8px solid darkgrey;
+    border-right: none;
+    cursor: pointer;
+  }
+
+  .table{
+    display: flex;
+    flex-direction: column;
+  }
+}

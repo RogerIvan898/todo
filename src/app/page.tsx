@@ -6,7 +6,7 @@ import style from './page.module.scss'
 import {v4 as uuidv4} from 'uuid'
 import {useState} from "react";
 
-export interface INote{
+interface INote{
   id: string,
   content: string
 }

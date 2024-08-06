@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 
-import style from './table-note.module.scss'
+import style from './note-cell.module.scss'
 
-interface ITableNoteProps{
+interface INoteCellProps{
   title: string,
   folder: string,
   created: string,
@@ -10,28 +10,28 @@ interface ITableNoteProps{
   bookmark: boolean
 }
 
-const TableNote: FC<ITableNoteProps> = (props) => {
+const NoteCell: FC<INoteCellProps> = (props) => {
   return (
     <div className={style.note}>
-      <div className={`${style.unit} ${style.title}`}>
+      <div className={style.title}>
         <span className="material-symbols-outlined">description</span>
-        {props.title}
+        <p> {props.title}</p>
       </div>
-      <div className={`${style.unit} ${style.folder}`}>
+      <div className={style.folder}>
         <span className="material-symbols-outlined">folder</span>
-        {props.folder}
+        <p> {props.folder}</p>
       </div>
-      <div className={`${style.unit} ${style.created}`}>
+      <div className={style.created}>
         {props.created}
       </div>
-      <div className={`${style.unit} ${style.type}`}>
+      <div className={style.type}>
         {props.type}
       </div>
-      <div className={`${style.unit} ${style.bookmark}`}>
+      <div className={style.bookmark}>
         <input type={"checkbox"}/>
       </div>
     </div>
   );
 };
 
-export default TableNote;
+export default NoteCell;
