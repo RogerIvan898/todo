@@ -11,7 +11,6 @@ interface UnitProperty {
   symbol: string
   title: string
 }
-
 const tableUnitsProperties: UnitProperty[] = [
   {title: 'title', symbol: 'list_alt'},
   {title: 'folder', symbol: 'topic'},

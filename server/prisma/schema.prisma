@@ -1,11 +1,40 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+
+  folders Folder[]
+
+  @@map("user")
+}
+
+model Folder {
+    id      Int @id @default(autoincrement())
+    title   String
+
+    notes Note[]
+
+    user  User @relations(fields: [userId], references: [id])
+    userId Int @map("user_id")
+
+    @@map ("folder")
+}
+
+model Note {
+    id          Int @id @default(autoincrement())
+    title       String
+    description String?
+    type        String
+    bookmark    Boolean @default(false)
+
+    folder      Folder @relations(fields: [folderId], references[id])
+    folderId    Int @map("folder_id")
+
+    @@map("note")
 }
 
 datasource db {

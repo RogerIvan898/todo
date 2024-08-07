@@ -22,9 +22,11 @@ const EditableContainer: FC<EditableContainerProps> = (
       setIsEditing(false)
     }
   }
+
   const handleButtonClick = () => {
     setIsEditing(true)
   }
+
   const handleInputBlur = () => {
     setIsEditing(false)
   }
