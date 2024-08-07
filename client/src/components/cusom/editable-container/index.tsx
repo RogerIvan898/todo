@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 import Container from "../../ui/container/index";
 import DecorativeContainer from "../decorative-container/index";
-import style from '../editable-container/editable-container.module.scss'
+import style from './editable-container.module.scss'
 
 interface EditableContainerProps{
   symbol?: string
