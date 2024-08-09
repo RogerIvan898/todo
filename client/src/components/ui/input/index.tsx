@@ -29,13 +29,13 @@ const Input: FC<InputProps> = (props) => {
         onKeyPress={handleSubmit}
         {...inputProps}
       />
-      <div className={style.submit}>
-        <span className={`material-symbols-outlined ${applyFocusedStyle()}`}
-          onClick={props?.onSubmit}
-        >
-          check_circle
-        </span>
-      </div>
+      {/*<div className={style.submit}>*/}
+      {/*  <span className={`material-symbols-outlined ${applyFocusedStyle()}`}*/}
+      {/*    onClick={props?.onSubmit}*/}
+      {/*  >*/}
+      {/*    check_circle*/}
+      {/*  </span>*/}
+      {/*</div>*/}
     </div>
   );
 };

@@ -5,7 +5,7 @@ const Container: FC<HTMLProps<HTMLDivElement>> = (props) => {
   const {children, className,...initialProps} = props
 
   return (
-    <div className={`${style.container} ${className ?? ''}`}
+    <div className={`${className ?? ''} ${style.container} `}
          {...initialProps}>
       {children}
     </div>

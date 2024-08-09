@@ -23,9 +23,9 @@ const Todos = () => {
   const [chosenFolder, setChosenFolder] = useState(null)
 
   useEffect(() => {
-    const initialTodos: Folder[] = new Array(3).fill(null).map(() => ({
-      id: uuidv4(), title: 'some folder', notes: []
-    }))
+    const initialTodos: Folder[] = new Array(3).fill(null).map(() => (
+      { id: uuidv4(), title: 'some folder', notes: [] }
+    ))
 
     setTodods(initialTodos)
   }, [])

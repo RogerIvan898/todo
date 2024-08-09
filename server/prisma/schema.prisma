@@ -2,42 +2,48 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
-  folders Folder[]
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt     @map("updated_at")
+
+  folders   Folder[]
 
   @@map("user")
 }
 
 model Folder {
-    id      Int @id @default(autoincrement())
-    title   String
+  id        Int      @id @default(autoincrement())
+  title     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
 
-    notes Note[]
+  notes     Note[]
 
-    user  User @relations(fields: [userId], references: [id])
-    userId Int @map("user_id")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @map("user_id")
 
-    @@map ("folder")
+  @@map("folder")
 }
 
 model Note {
-    id          Int @id @default(autoincrement())
-    title       String
-    description String?
-    type        String
-    bookmark    Boolean @default(false)
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  type        String
+  bookmark    Boolean   @default(false)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt      @map("updated_at")
 
-    folder      Folder @relations(fields: [folderId], references[id])
-    folderId    Int @map("folder_id")
+  folder      Folder    @relation(fields: [folderId], references: [id])
+  folderId    Int       @map("folder_id")
 
-    @@map("note")
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  @@map("note")
 }

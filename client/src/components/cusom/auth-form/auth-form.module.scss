@@ -1,0 +1,47 @@
+.container{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40vw;
+  height: 72vh;
+  padding: 3vw !important;
+  gap: 2vw;
+}
+
+.title{
+  font-weight: bolder;
+  font-size: 1.2rem;
+}
+
+.inputs{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
+  width: 100%;
+}
+
+.inputContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5vw;
+}
+
+.submitButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: darkgrey;
+  transition: scale 0.3s;
+  width: 80%;
+
+  &:hover{
+    scale: 1.01;
+    color: grey;
+  }
+}
