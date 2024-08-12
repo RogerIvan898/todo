@@ -31,6 +31,13 @@
   gap: 0.5vw;
 }
 
+.confirmInput{
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }
+}
+
 .submitButton{
   display: flex;
   justify-content: center;
