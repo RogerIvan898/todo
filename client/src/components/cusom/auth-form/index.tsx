@@ -3,6 +3,7 @@ import style from './auth-form.module.scss'
 import React, {ChangeEvent, Dispatch, FC, SetStateAction, useState} from 'react';
 import Container from "../../ui/container/index";
 import Input from "../../ui/input/index";
+import {isUser} from "../../../api";
 
 interface AuthFormProps {
   title: string
@@ -20,6 +21,12 @@ const AuthForm: FC<AuthFormProps> = ({title}) => {
 
   const handleSubmit = async () => {
     if(password !== confirmPassword){
+      return
+    }
+
+    const isUser = await isUser(email)
+    if(isUser){
+      alert('User with such email already exist')
       return
     }
 
@@ -78,6 +85,7 @@ const AuthForm: FC<AuthFormProps> = ({title}) => {
         className={style.submitButton}>
         Submit
       </Container>
+      <a href={''}>I already have an account</a>
     </Container >
   );
 };

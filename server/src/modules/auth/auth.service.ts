@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {pbkdf2Sync, randomBytes} from "crypto";
 import {RegisterDto} from "./dto/register.dto";
-import {PrismaService} from "../prisma/prisma.service";
+import {UserService} from "../user/user.service";
 
 function hashPassword(password: string){
   const salt = randomBytes(16).toString('hex')
@@ -11,17 +11,15 @@ function hashPassword(password: string){
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private userService: UserService) {}
 
   async register(registerDto: RegisterDto){
     const { email, password } = registerDto
     const { salt, hash } = hashPassword(password)
 
-    const user = await this.prisma.user.create({
-      data: {
-        email,
-        password: `${salt}:${hash}`
-      }
+    const user = await this.userService.create({
+      email,
+      password: `${salt}:${hash}`
     })
 
     return user
