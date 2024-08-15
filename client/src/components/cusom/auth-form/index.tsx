@@ -1,42 +1,26 @@
 import style from './auth-form.module.scss'
 
-import React, {ChangeEvent, Dispatch, FC, SetStateAction, useState} from 'react';
+import {ChangeEvent, Dispatch, FC, SetStateAction, useState} from 'react';
 import Container from "../../ui/container/index";
 import Input from "../../ui/input/index";
-import {isUser} from "../../../api";
 
 interface AuthFormProps {
   title: string
+  showConfirmPassword: boolean
+  switchFormText: string
+  onSwitch: string
+  onSubmit: (email: string, password: string, confirmPassword?: string) => Promise<void>
 }
 
-const AuthForm: FC<AuthFormProps> = ({title}) => {
+const AuthForm: FC<AuthFormProps> = ({title, onSubmit, showConfirmPassword, switchFormText}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>, dispatch: Dispatch<SetStateAction<string>>) => {
-    const {value} = event.currentTarget
+    const { value } = event.target
+
     dispatch(value)
-  }
-
-  const handleSubmit = async () => {
-    if(password !== confirmPassword){
-      return
-    }
-
-    const isUser = await isUser(email)
-    if(isUser){
-      alert('User with such email already exist')
-      return
-    }
-
-    const responce = await fetch(`http://localhost:3001/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    })
   }
 
   return (
@@ -51,7 +35,7 @@ const AuthForm: FC<AuthFormProps> = ({title}) => {
           </label>
           <Input
             id={'email'}
-            onInput={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setEmail))}
+            onChange={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setEmail))}
             placeholder={'email'}
             type={'email'}
           />
@@ -64,28 +48,29 @@ const AuthForm: FC<AuthFormProps> = ({title}) => {
             id={'password'}
             placeholder={'password'}
             type={'password'}
-            onInput={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setPassword))}
+            onChange={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setPassword))}
           />
         </div>
-        <div className={style.inputContainer}>
+         { showConfirmPassword &&
+         <div className={style.inputContainer}>
           <label htmlFor={'confirm'}>
             Confirm password
           </label>
           <Input
             className={style.confirmInput}
-            onInput={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setConfirmPassword))}
+            onChange={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setConfirmPassword))}
             id={'confirm'}
             placeholder={'confirm password'}
             type={'password'}
           />
-        </div>
+        </div> }
       </div>
       <Container
-        onClick={handleSubmit}
+        onClick={() => onSubmit(email, password, confirmPassword)}
         className={style.submitButton}>
         Submit
       </Container>
-      <a href={''}>I already have an account</a>
+      <a href={''}>{ switchFormText }</a>
     </Container >
   );
 };

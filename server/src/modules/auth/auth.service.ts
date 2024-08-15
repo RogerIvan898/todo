@@ -1,20 +1,19 @@
-import { Injectable } from '@nestjs/common';
-import {pbkdf2Sync, randomBytes} from "crypto";
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {RegisterDto} from "./dto/register.dto";
 import {UserService} from "../user/user.service";
-
-function hashPassword(password: string){
-  const salt = randomBytes(16).toString('hex')
-  const hash = pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex')
-  return { salt, hash }
-}
+import {formatResponse, hashPassword} from "../../helpers";
 
 @Injectable()
 export class AuthService {
   constructor(private userService: UserService) {}
 
-  async register(registerDto: RegisterDto){
+  async register(registerDto: RegisterDto) {
     const { email, password } = registerDto
+
+    if (await this.userService.isUserExists(email)) {
+      throw new HttpException('User already exist', HttpStatus.BAD_REQUEST)
+    }
+
     const { salt, hash } = hashPassword(password)
 
     const user = await this.userService.create({
@@ -22,6 +21,6 @@ export class AuthService {
       password: `${salt}:${hash}`
     })
 
-    return user
+    return formatResponse(user)
   }
 }

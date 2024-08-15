@@ -5,8 +5,8 @@ import {UserService} from "./user.service";
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('is')
-  async isUser(@Body('email') email: string){
-    return this.userService.isUser(email)
+  @Post('isExists')
+  async isUserExist(@Body('email') email: string){
+    return this.userService.isUserExists(email)
   }
 }
