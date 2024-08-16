@@ -1,6 +1,7 @@
 'use client'
 import {FC, HTMLProps, useRef, useState} from 'react';
 import style from './input.module.scss'
+import React from "react/ts5.0";
 
 interface InputProps extends HTMLProps<HTMLInputElement>{}
 
@@ -9,17 +10,17 @@ const Input: FC<InputProps> = (props) => {
 
   const { className, id, style: innerStyle, ...inputProps } = props
 
-  const handleSubmit = (e: KeyboardEvent) => {
+  const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(e.key === 'Enter' && props.onSubmit){
       e.preventDefault()
       props.onSubmit()
     }
   }
-  const applyFocusedStyle = () => isFocused ? style.focused : ''
+  const applyFocusedClass = isFocused ? style.focused : ''
 
   return (
     <div id={id}
-         className={`${style.inputContainer} ${applyFocusedStyle()} ${className ?? ''}`}
+         className={`${style.inputContainer} ${applyFocusedClass} ${className ?? ''}`}
          style={innerStyle}
     >
       <input

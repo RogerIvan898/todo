@@ -23,10 +23,10 @@ const NotesTable: FC<INotesTableProps> = ({notes}) => {
   return (
     <div className={style.container}>
       <div className={style.properties}>
-          {tableUnitsProperties.map(property =>
-            <div key={property.title} className={style[property.title]}>
-              <span className="material-symbols-outlined">{property.symbol}</span>
-              <p> {property.title.charAt(0).toLocaleUpperCase() + property.title.slice(1)}</p>
+          {tableUnitsProperties.map(({title, symbol}) =>
+            <div key={title} className={style[title]}>
+              <span className="material-symbols-outlined">{symbol}</span>
+              <p> {title.charAt(0).toLocaleUpperCase() + title.slice(1)}</p>
             </div>
           )}
       </div>
