@@ -1,11 +1,22 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {RegisterDto} from "./dto/register.dto";
 import {UserService} from "../user/user.service";
-import {formatResponse, hashPassword} from "../../helpers";
+import {formatResponse, hashPassword, validatePassword} from "../../helpers";
+import jwt from 'jsonwebtoken'
+
+const JWT_SECRET = 'super-secret'
 
 @Injectable()
 export class AuthService {
   constructor(private userService: UserService) {}
+
+  generateJwtToken(id: string, email: string){
+    return jwt.sign({ id, email }, JWT_SECRET ,{expiresIn: '1h'})
+  }
+
+  verifyToken(token: string){
+    return jwt.verify(token, JWT_SECRET)
+  }
 
   async register(registerDto: RegisterDto) {
     const { email, password } = registerDto
@@ -22,5 +33,21 @@ export class AuthService {
     })
 
     return formatResponse(user)
+  }
+
+  async login(loginDto: RegisterDto){
+    const { email, password } = loginDto
+    const user = await this.userService.findOneByEmail(email)
+
+    if(!validatePassword(password, user.password)){
+      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED)
+    }
+
+    const token = this.generateJwtToken(user.id, user.email)
+
+    return {
+      ...user,
+      token
+    }
   }
 }

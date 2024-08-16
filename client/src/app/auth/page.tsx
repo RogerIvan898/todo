@@ -1,10 +1,14 @@
 'use client'
-import React from 'react';
-import AuthForm from "../../components/cusom/auth-form/index";
-import {isUserExists, register} from "../../api";
+import React, {useContext} from 'react';
+import AuthForm from "../../components/cusom/auth-form";
+import {api} from "../../api";
+import {AuthContext} from "../../components/context/auth-context";
 
 const Page = () => {
+  const { userId, login } = useContext(AuthContext)
+
   const handleRegistration = async (email: string, password: string, confirmPassword: string) => {
+    console.log(userId)
     if(!email || !password || !confirmPassword){
       alert('All fields are required')
       return
@@ -13,12 +17,16 @@ const Page = () => {
       alert('Passwords do not match')
       return
     }
-    if(await isUserExists(email)){
+    if(await api.isUserExists(email)){
       alert('User with such email already exist')
       return
     }
 
-    await register(email, password)
+    const response = await api.registerUser(email, password)
+    if(response){
+      const { id } = response.data
+      login(id)
+    }
   }
 
   return (

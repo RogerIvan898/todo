@@ -2,11 +2,22 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 40vw;
   height: 72vh;
   padding: 3vw !important;
   gap: 1vw;
+
+  a{
+    font-size: 1.03rem;
+    color: gray;
+    transition: 0.2s all;
+
+    &:hover {
+      scale: 1.03;
+    }
+  }
 }
 
 .title{

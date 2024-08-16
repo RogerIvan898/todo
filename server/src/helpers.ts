@@ -16,7 +16,8 @@ export const hashPassword = (password: string) => {
   return { salt, hash }
 }
 
-export const validatePassword = (password: string, hashedPassword: string) => {
-  const { hash } = hashPassword(password)
+export const validatePassword = (password: string, storiedPassword: string) => {
+  const [salt, hashedPassword] = storiedPassword.split(':')
+  const hash = pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex')
   return hash === hashedPassword
 }

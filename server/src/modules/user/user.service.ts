@@ -1,12 +1,13 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {PrismaService} from "../prisma/prisma.service";
 import {IUser} from "../../types/types";
+import {User} from "../../../prisma/src/prisma-client";
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: IUser){
+  async create(data: IUser): Promise<User>{
     const { email, password } = data
 
     if(await this.isUserExists(email)){
@@ -18,7 +19,7 @@ export class UserService {
     })
   }
 
-  async findOneByEmail(email: string){
+  async findOneByEmail(email: string): Promise<User>{
     return this.prisma.user.findFirst({ where: { email: email } })
   }
 
