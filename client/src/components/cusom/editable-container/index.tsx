@@ -10,9 +10,12 @@ interface EditableContainerProps{
   className: string
 }
 
-const EditableContainer: FC<EditableContainerProps> = (
-  {symbol, content, onSubmit, className}
-) => {
+const EditableContainer: FC<EditableContainerProps> = ({
+                                                         symbol,
+                                                         content,
+                                                         onSubmit,
+                                                         className
+}) => {
   const [isEditing, setIsEditing] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -32,7 +35,9 @@ const EditableContainer: FC<EditableContainerProps> = (
   }
 
   useEffect(() => {
-    if(isEditing) inputRef.current?.focus()
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+    }
   }, [isEditing])
 
   return (
@@ -45,6 +50,7 @@ const EditableContainer: FC<EditableContainerProps> = (
               onKeyPress={handleSubmit}
               className={style.input}
               placeholder={'Title'}
+              autoFocus
             />
           </Container>) : (
           <DecorativeContainer className={className} symbol={symbol} content={content}/>

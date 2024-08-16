@@ -8,7 +8,6 @@ const Page = () => {
   const { userId, login } = useContext(AuthContext)
 
   const handleRegistration = async (email: string, password: string, confirmPassword: string) => {
-    console.log(userId)
     if(!email || !password || !confirmPassword){
       alert('All fields are required')
       return

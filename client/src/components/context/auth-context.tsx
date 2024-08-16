@@ -1,6 +1,6 @@
 'use client'
 
-import React, {createContext, FC, ReactNode, useState} from 'react';
+import React, {createContext, FC, ReactNode, useContext, useState} from 'react';
 
 interface IAuthContext{
   userId: string | null
@@ -27,5 +27,13 @@ const AuthProvider: FC<ReactNode> = ({children}) => {
     </AuthContext.Provider>
   );
 };
+
+const useAuth = (): IAuthContext => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
+}
 
 export { AuthContext, AuthProvider }

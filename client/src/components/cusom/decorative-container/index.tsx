@@ -8,7 +8,7 @@ interface ITodoProps extends HTMLProps<HTMLDivElement>{
 }
 
 const DecorativeContainer: FC<ITodoProps> = (
-  {content, symbol, key, className}
+  { content, symbol, key, className }
 ) => {
   return (
     <Container key={key} className={`${style.container} ${className ?? ''}`}>

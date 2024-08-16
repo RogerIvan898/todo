@@ -37,10 +37,11 @@ export class AuthService {
 
   async login(loginDto: RegisterDto){
     const { email, password } = loginDto
+
     const user = await this.userService.findOneByEmail(email)
 
-    if(!validatePassword(password, user.password)){
-      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED)
+    if (!user  || !validatePassword(password, user.password)) {
+      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
 
     const token = this.generateJwtToken(user.id, user.email)
