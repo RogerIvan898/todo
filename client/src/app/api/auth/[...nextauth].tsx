@@ -1,6 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth from "next-auth/next";
-import {JWT} from "next-auth/jwt";
 
 async function authenticateUser(email: string, password: string) {
   try {
@@ -8,10 +7,10 @@ async function authenticateUser(email: string, password: string) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
-    });
+    })
 
     if (response.ok) {
-      const data = await response.json();
+      const data = await response.json()
       return {
         id: data.id,
         name: data.name,
@@ -19,11 +18,12 @@ async function authenticateUser(email: string, password: string) {
         token: data.token,
       };
     } else {
-      return null;
+      return null
     }
   } catch (error) {
-    console.error('Authentication error:', error);
-    return null;
+    console.error('Authentication error:', error)
+
+    return null
   }
 }
 
@@ -36,14 +36,14 @@ export default NextAuth({
       },
       authorize: async (credentials) => {
         try {
-          const user = await authenticateUser(credentials?.email || '', credentials?.password || '');
+          const user = await authenticateUser(credentials?.email || '', credentials?.password || '')
           if (user) {
-            return user;
+            return user
           }
-          return null;
+          return null
         } catch (error) {
-          console.error('Authorization error:', error);
-          return null;
+          console.error('Authorization error:', error)
+          return null
         }
       },
     }),
@@ -51,10 +51,10 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.name = user.name;
-        token.email = user.email;
-        token.token = user.token; // Сохраняем токен в JWT
+        token.id = user.id
+        token.name = user.name
+        token.email = user.email
+        token.token = user.token
       }
       return token;
     },
@@ -64,11 +64,11 @@ export default NextAuth({
         name: token.name as string,
         email: token.email as string,
       };
-      session.token = token.token as string; // Сохраняем токен в сессии
+      session.token = token.token as string
       return session;
     },
   },
   pages: {
-    signIn: '/auth/signin', // Задайте путь к вашей странице входа, если она есть
+    signIn: '/auth/signin',
   },
 });
