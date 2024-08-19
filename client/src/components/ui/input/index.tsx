@@ -4,10 +4,12 @@ import style from './input.module.scss'
 
 interface InputProps extends HTMLProps<HTMLInputElement>{}
 
-const Input: FC<InputProps> = (props) => {
+const Input: FC<InputProps> = ({className, id , ...props}) => {
   const [isFocused, setIsFocused] = useState(false)
 
-  const { className, id, style: innerStyle, ...inputProps } = props
+  const { style: innerStyle, ...inputProps } = props
+
+  const applyFocusedClass = isFocused ? style.focused : ''
 
   const handleSubmit = (e: KeyboardEvent) => {
     if(e.key === 'Enter' && props.onSubmit){
@@ -15,11 +17,10 @@ const Input: FC<InputProps> = (props) => {
       props.onSubmit()
     }
   }
-  const applyFocusedClass = isFocused ? style.focused : ''
 
   return (
     <div id={id}
-         className={`${style.inputContainer} ${applyFocusedClass} ${className ?? ''}`}
+         className={`${style.inputContainer} ${applyFocusedClass} ${className}`}
          style={innerStyle}
     >
       <input

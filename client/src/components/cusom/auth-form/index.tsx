@@ -13,7 +13,12 @@ interface AuthFormProps {
   onSubmit: (formData: FormData) => Promise<void>
 }
 
-const AuthForm: FC<AuthFormProps> = ({title, onSubmit, showConfirmPassword, switchFormText}) => {
+const AuthForm: FC<AuthFormProps> = ({
+                                       title,
+                                       onSubmit,
+                                       showConfirmPassword,
+                                       switchFormText
+}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -25,10 +30,11 @@ const AuthForm: FC<AuthFormProps> = ({title, onSubmit, showConfirmPassword, swit
   }
 
   const handleSubmit = () => {
-    const formData = new FormData()
+    const formData = new FormData() as FormData
 
     formData.append('email', email)
     formData.append('password', password)
+
     if(confirmPassword){
       formData.append('confirmPassword', confirmPassword)
     }

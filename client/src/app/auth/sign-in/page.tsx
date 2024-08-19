@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react';
 import style from './sign-in.module.scss'
 import AuthForm from "../../../components/cusom/auth-form/index";
 import Layout from "../../../components/ui/layout/index";

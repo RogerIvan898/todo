@@ -1,6 +1,7 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 import Container from "../../ui/container/index";
 import DecorativeContainer from "../decorative-container/index";
+
 import style from './editable-container.module.scss'
 
 interface EditableContainerProps{
@@ -14,7 +15,7 @@ const EditableContainer: FC<EditableContainerProps> = ({
                                                          symbol,
                                                          content,
                                                          onSubmit,
-                                                         className
+                                                         className= '',
 }) => {
   const [isEditing, setIsEditing] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -36,7 +37,7 @@ const EditableContainer: FC<EditableContainerProps> = ({
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
-      inputRef.current.focus();
+      inputRef.current.focus()
     }
   }, [isEditing])
 
