@@ -13,3 +13,9 @@ export interface INote{
   type: string
   bookmark: boolean
 }
+
+export interface IUser{
+  id: string
+  email: string
+  password: string
+}

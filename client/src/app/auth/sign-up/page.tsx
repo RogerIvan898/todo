@@ -1,13 +1,18 @@
 'use client'
 import React, {useContext} from 'react';
-import AuthForm from "../../components/cusom/auth-form";
-import {api} from "../../api";
-import {AuthContext} from "../../components/context/auth-context";
+import AuthForm from "../../../components/cusom/auth-form/index";
+import {api} from "../../../api";
+import {AuthContext} from "../../../components/context/auth-context";
+import Layout from "../../../components/ui/layout/index";
 
 const Page = () => {
   const { userId, login } = useContext(AuthContext)
 
-  const handleRegistration = async (email: string, password: string, confirmPassword: string) => {
+  const handleRegistration = async (formData: FormData) => {
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const confirmPassword = formData.get('confirmPassword') as string
+
     if(!email || !password || !confirmPassword){
       alert('All fields are required')
       return
@@ -29,7 +34,7 @@ const Page = () => {
   }
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+    <Layout>
       <AuthForm
         title={'Sign up'}
         onSubmit={handleRegistration}
@@ -37,7 +42,7 @@ const Page = () => {
         switchFormText={'I already have an account'}
         onSwitch={''}
       />
-    </div>
+    </Layout>
   );
 };
 

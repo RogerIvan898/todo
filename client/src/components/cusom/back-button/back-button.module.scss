@@ -1,0 +1,13 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12vw;
+  height: 12vh;
+  cursor: pointer;
+  color: darkgrey;
+
+  span{
+    font-size: 3rem;
+  }
+}

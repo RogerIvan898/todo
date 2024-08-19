@@ -1,3 +1,4 @@
+'use client'
 import style from './auth-form.module.scss'
 
 import {ChangeEvent, Dispatch, FC, SetStateAction, useState} from 'react';
@@ -9,7 +10,7 @@ interface AuthFormProps {
   showConfirmPassword: boolean
   switchFormText: string
   onSwitch: string
-  onSubmit: (email: string, password: string, confirmPassword?: string) => Promise<void>
+  onSubmit: (formData: FormData) => Promise<void>
 }
 
 const AuthForm: FC<AuthFormProps> = ({title, onSubmit, showConfirmPassword, switchFormText}) => {
@@ -21,6 +22,18 @@ const AuthForm: FC<AuthFormProps> = ({title, onSubmit, showConfirmPassword, swit
     const { value } = event.target
 
     dispatch(value)
+  }
+
+  const handleSubmit = () => {
+    const formData = new FormData()
+
+    formData.append('email', email)
+    formData.append('password', password)
+    if(confirmPassword){
+      formData.append('confirmPassword', confirmPassword)
+    }
+
+    onSubmit(formData)
   }
 
   return (
@@ -66,7 +79,7 @@ const AuthForm: FC<AuthFormProps> = ({title, onSubmit, showConfirmPassword, swit
         </div> }
       </div>
       <Container
-        onClick={() => onSubmit(email, password, confirmPassword)}
+        onClick={handleSubmit}
         className={style.submitButton}>
         Submit
       </Container>

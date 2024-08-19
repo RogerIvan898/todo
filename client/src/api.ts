@@ -1,5 +1,3 @@
-import {IUser} from "../../server/src/types/types";
-
 class Api {
   readonly API_ULR = 'http://localhost:3001/api'
 
@@ -19,6 +17,19 @@ class Api {
   public async registerUser(email: string, password: string) {
     const response = await fetch(`${this.API_ULR}/auth/register`, this.initPostOptions({ email, password }))
     return response.json()
+  }
+
+  public async loginUser(email: string, password: string){
+    const response = await fetch(`${this.API_ULR}/auth/login`, this.initPostOptions({ email, password }))
+    const data = await response.json()
+
+    const { token } = data
+
+    if(token){
+      sessionStorage.setItem('token', token)
+    }
+
+    return data
   }
 }
 

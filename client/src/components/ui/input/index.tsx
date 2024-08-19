@@ -1,7 +1,6 @@
 'use client'
-import {FC, HTMLProps, useRef, useState} from 'react';
+import {FC, HTMLProps, useState} from 'react';
 import style from './input.module.scss'
-import React from "react/ts5.0";
 
 interface InputProps extends HTMLProps<HTMLInputElement>{}
 
@@ -10,7 +9,7 @@ const Input: FC<InputProps> = (props) => {
 
   const { className, id, style: innerStyle, ...inputProps } = props
 
-  const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: KeyboardEvent) => {
     if(e.key === 'Enter' && props.onSubmit){
       e.preventDefault()
       props.onSubmit()

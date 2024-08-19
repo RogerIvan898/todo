@@ -2,7 +2,7 @@ import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {RegisterDto} from "./dto/register.dto";
 import {UserService} from "../user/user.service";
 import {formatResponse, hashPassword, validatePassword} from "../../helpers";
-import jwt from 'jsonwebtoken'
+import * as jwt from 'jsonwebtoken'
 
 const JWT_SECRET = 'super-secret'
 
@@ -44,7 +44,7 @@ export class AuthService {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
 
-    const token = this.generateJwtToken(user.id, user.email)
+    const token = this.generateJwtToken(user.id.toString(), user.email)
 
     return {
       ...user,
