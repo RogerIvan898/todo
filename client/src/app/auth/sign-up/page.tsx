@@ -2,12 +2,11 @@
 import React, {useContext} from 'react';
 import AuthForm from "../../../components/cusom/auth-form/index";
 import {api} from "../../../api";
-import {AuthContext} from "../../../components/context/auth-context";
-import Layout from "../../../components/ui/layout/index";
+import {useAuth} from "../../../components/context/auth-context";
 import AuthPageLayout from "../../../components/page/auth-page-layout/index";
 
 const Page = () => {
-  const { userId, login } = useContext(AuthContext)
+  const { userId, login } = useAuth()
 
   const handleRegistration = async (formData: FormData) => {
     const email = formData.get('email') as string

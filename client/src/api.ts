@@ -1,11 +1,12 @@
 class Api {
   readonly API_ULR = 'http://localhost:3001/api'
 
-  private initPostOptions(body: Record<string, unknown> | string): RequestInit {
+  private initPostOptions(body: Record<string, unknown> | string, cookie = false): RequestInit {
     return {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: typeof body === 'string' ? body : JSON.stringify(body)
+      body: typeof body === 'string' ? body : JSON.stringify(body),
+      credentials: cookie ? 'include' : 'omit'
     }
   }
 
@@ -26,6 +27,7 @@ class Api {
     const { token } = data
 
     if(token){
+      document.cookie = `jwt=${token}; max-age=${3600}; path=/`
       sessionStorage.setItem('token', token)
     }
 

@@ -1,6 +1,7 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable, Req, Res} from '@nestjs/common';
 import {RegisterDto} from "./dto/register.dto";
 import {UserService} from "../user/user.service";
+import {Request, Response} from "express";
 import {formatResponse, hashPassword, validatePassword} from "../../helpers";
 import * as jwt from 'jsonwebtoken'
 
@@ -16,6 +17,25 @@ export class AuthService {
 
   verifyToken(token: string){
     return jwt.verify(token, JWT_SECRET)
+  }
+
+  async getProfile(@Req() req: Request){
+    const token = req.cookies['jwt']
+
+    if(!token){
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
+    const decoded = this.verifyToken(token)
+    const userId = decoded.id
+
+    const user = await this.userService.findOneById(userId)
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return user
   }
 
   async register(registerDto: RegisterDto) {

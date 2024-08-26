@@ -1,5 +1,6 @@
-import {Body, Controller, HttpException, HttpStatus, Post} from '@nestjs/common';
+import {Body, Controller, Get, HttpException, HttpStatus, Post, Req, Res} from '@nestjs/common';
 import {AuthService} from "./auth.service";
+import {Response} from "express"
 import {RegisterDto} from "./dto/register.dto";
 import {UserService} from "../user/user.service";
 import {formatResponse} from "../../helpers";
@@ -10,6 +11,15 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {}
+
+  @Get('profile')
+  async getProfile(@Req() req){
+    try {
+      return await this.authService.getProfile(req)
+    } catch (error) {
+      throw new HttpException(error.message, error.status || HttpStatus.UNAUTHORIZED);
+    }
+  }
 
   @Post('register')
   async register(@Body() registerDto: RegisterDto){
@@ -24,9 +34,14 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() loginDto: RegisterDto){
+  async login(@Body() loginDto: RegisterDto, @Res() res: Response){
     try {
-      const { token } = await this.authService.login(loginDto);
+      const { token } = await this.authService.login(loginDto)
+      res.cookie('jwt', '', {
+        httpOnly: true,
+        maxAge: 3600000,
+        secure: false
+      })
       return formatResponse({token})
     }
      catch (error) {
