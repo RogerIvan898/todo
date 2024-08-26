@@ -15,11 +15,11 @@ interface AuthFormProps {
 }
 
 const AuthForm: FC<AuthFormProps> = ({
-                                       title,
+                                       title = 'Title',
                                        onSubmit,
                                        showConfirmPassword,
-                                       switchFormText,
-                                       onSwitch,
+                                       switchFormText = '',
+                                       onSwitch= '',
 }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -45,9 +45,13 @@ const AuthForm: FC<AuthFormProps> = ({
   }
 
   return (
-    <Container className={style.container}>
+    <Container>
+      <form className={style.container} onSubmit={(e) => {
+        e.preventDefault()
+        handleSubmit()
+      }}>
       <p className={style.title}>
-        { title ?? 'Title' }
+        { title }
       </p>
       <div className={style.inputs}>
         <div className={style.inputContainer}>
@@ -86,13 +90,12 @@ const AuthForm: FC<AuthFormProps> = ({
           />
         </div> }
       </div>
-      <Container
-        onClick={handleSubmit}
-        className={style.submitButton}>
-        Submit
+      <Container className={style.submitButton}>
+        <button type={'submit'}>Submit</button>
       </Container>
       <Link href={onSwitch}>{ switchFormText }</Link>
-    </Container >
+      </form>
+    </Container>
   );
 };
 
