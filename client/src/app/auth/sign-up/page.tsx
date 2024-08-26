@@ -1,5 +1,5 @@
 'use client'
-import React, {useContext} from 'react';
+import React from 'react';
 import AuthForm from "../../../components/cusom/auth-form/index";
 import {api} from "../../../api";
 import {useAuth} from "../../../components/context/auth-context";
