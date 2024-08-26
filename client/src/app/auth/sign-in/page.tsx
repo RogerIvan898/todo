@@ -1,10 +1,8 @@
 'use client'
 
-import style from './sign-in.module.scss'
 import AuthForm from "../../../components/cusom/auth-form/index";
-import Layout from "../../../components/ui/layout/index";
 import {api} from "../../../api";
-import BackButton from "../../../components/cusom/back-button/index";
+import AuthPageLayout from "../../../components/page/auth-page-layout/index";
 
 const SignIn = () => {
   const handleLogin = async (formData: FormData) => {
@@ -20,15 +18,14 @@ const SignIn = () => {
   }
 
   return (
-    <Layout>
-      <BackButton className={style.button}/>
+    <AuthPageLayout>
       <AuthForm title={'Sign in'}
                 showConfirmPassword={false}
                 switchFormText={'I have no account'}
                 onSwitch={''}
                 onSubmit={handleLogin}
       />
-    </Layout>
+    </AuthPageLayout>
   );
 };
 

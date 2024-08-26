@@ -4,6 +4,7 @@ import style from './auth-form.module.scss'
 import {ChangeEvent, Dispatch, FC, SetStateAction, useState} from 'react';
 import Container from "../../ui/container/index";
 import Input from "../../ui/input/index";
+import Link from "next/link";
 
 interface AuthFormProps {
   title: string
@@ -17,7 +18,8 @@ const AuthForm: FC<AuthFormProps> = ({
                                        title,
                                        onSubmit,
                                        showConfirmPassword,
-                                       switchFormText
+                                       switchFormText,
+                                       onSwitch,
 }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -89,7 +91,7 @@ const AuthForm: FC<AuthFormProps> = ({
         className={style.submitButton}>
         Submit
       </Container>
-      <a href={''}>{ switchFormText }</a>
+      <Link href={onSwitch}>{ switchFormText }</Link>
     </Container >
   );
 };

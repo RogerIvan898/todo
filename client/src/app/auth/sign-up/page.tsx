@@ -4,6 +4,7 @@ import AuthForm from "../../../components/cusom/auth-form/index";
 import {api} from "../../../api";
 import {AuthContext} from "../../../components/context/auth-context";
 import Layout from "../../../components/ui/layout/index";
+import AuthPageLayout from "../../../components/page/auth-page-layout/index";
 
 const Page = () => {
   const { userId, login } = useContext(AuthContext)
@@ -34,15 +35,15 @@ const Page = () => {
   }
 
   return (
-    <Layout>
+    <AuthPageLayout>
       <AuthForm
         title={'Sign up'}
         onSubmit={handleRegistration}
         showConfirmPassword={true}
         switchFormText={'I already have an account'}
-        onSwitch={''}
+        onSwitch={'/auth/sign-in'}
       />
-    </Layout>
+    </AuthPageLayout>
   );
 };
 
