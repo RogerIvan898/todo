@@ -4,20 +4,12 @@ import {UserService} from "../user/user.service";
 import {Request, Response} from "express";
 import {formatResponse, hashPassword, validatePassword} from "../../helpers";
 import * as jwt from 'jsonwebtoken'
-
-const JWT_SECRET = 'super-secret'
+import {JwtTokenService} from "../../jwt-token/jwt-token.service";
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
-
-  generateJwtToken(id: string, email: string){
-    return jwt.sign({ id, email }, JWT_SECRET ,{expiresIn: '1h'})
-  }
-
-  verifyToken(token: string){
-    return jwt.verify(token, JWT_SECRET)
-  }
+  constructor(private userService: UserService,
+              private jwtTokenService: JwtTokenService) {}
 
   async getProfile(@Req() req: Request){
     const token = req.cookies['jwt']
@@ -26,7 +18,7 @@ export class AuthService {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
-    const decoded = this.verifyToken(token)
+    const decoded = this.jwtTokenService.verifyToken(token)
     const userId = decoded.id
 
     const user = await this.userService.findOneById(userId)
@@ -54,7 +46,6 @@ export class AuthService {
 
     return formatResponse(user)
   }
-
   async login(loginDto: RegisterDto){
     const { email, password } = loginDto
 
@@ -64,7 +55,7 @@ export class AuthService {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
 
-    const token = this.generateJwtToken(user.id.toString(), user.email)
+    const token = this.jwtTokenService.generateJwtToken(user.id.toString(), user.email)
 
     return {
       ...user,

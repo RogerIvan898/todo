@@ -42,10 +42,10 @@ export class AuthController {
         maxAge: 3600000,
         secure: false
       })
-      return formatResponse({token})
+      return res.json({token})
     }
      catch (error) {
-      throw new HttpException(error.message, error.status || HttpStatus.UNAUTHORIZED);
+      throw new HttpException(error.message, error.status || HttpStatus.UNAUTHORIZED)
     }
   }
 }

@@ -27,7 +27,7 @@ const Page = () => {
     }
 
     const response = await api.registerUser(email, password)
-    if(response){
+    if(response.data){
       const { id } = response.data
       login(id)
     }
