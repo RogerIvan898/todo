@@ -11,7 +11,7 @@ interface AuthFormProps {
   showConfirmPassword: boolean
   switchFormText: string
   onSwitch: string
-  onSubmit: (formData: FormData) => Promise<void>
+  onSubmit: (formData: FormData) => void
 }
 
 const AuthForm: FC<AuthFormProps> = ({

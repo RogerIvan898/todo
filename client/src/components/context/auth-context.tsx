@@ -22,7 +22,7 @@ const AuthProvider: FC<ReactNode> = ({children}) => {
   }
 
   return (
-    <AuthContext.Provider value={{userId, login, logout}}>
+    <AuthContext.Provider value={{ userId, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
