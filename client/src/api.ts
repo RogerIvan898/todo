@@ -26,7 +26,6 @@ class Api {
 
     const { token } = data
 
-    console.log( token)
     if(token){
       document.cookie = `jwt=${token}; max-age=${3600}; path=/`
       sessionStorage.setItem('token', token)

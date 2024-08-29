@@ -15,17 +15,19 @@ const notes: INote[] = [{
   created: '98',
   folder: 'Folder 1',
   bookmark: false
-}
-]
+}]
 
 const Todos = () => {
   const [todos, setTodods] = useState([])
   const [chosenFolder, setChosenFolder] = useState(null)
+  const a = 0
 
   useEffect(() => {
-    const initialTodos: Folder[] = new Array(3).fill(null).map(() => (
-      { id: uuidv4(), title: 'some folder', notes: [] }
-    ))
+    const initialTodos: Folder[] = new Array(3).fill(null).map(() => ({
+        id: uuidv4(),
+        title: 'some folder',
+        notes: []
+    }))
 
     setTodods(initialTodos)
   }, [])

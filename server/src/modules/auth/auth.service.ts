@@ -8,23 +8,24 @@ import {JwtTokenService} from "../../jwt-token/jwt-token.service";
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService,
-              private jwtTokenService: JwtTokenService) {}
+  constructor(
+    private userService: UserService,
+    private jwtTokenService: JwtTokenService
+  ) {}
 
   async getProfile(@Req() req: Request){
     const token = req.cookies['jwt']
 
     if(!token){
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED)
     }
 
     const decoded = this.jwtTokenService.verifyToken(token)
     const userId = decoded.id
-
     const user = await this.userService.findOneById(userId)
 
     if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND)
     }
 
     return user
@@ -46,6 +47,7 @@ export class AuthService {
 
     return formatResponse(user)
   }
+
   async login(loginDto: RegisterDto){
     const { email, password } = loginDto
 

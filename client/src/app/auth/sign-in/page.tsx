@@ -22,7 +22,7 @@ const SignIn = () => {
       <AuthForm title={'Sign in'}
                 showConfirmPassword={false}
                 switchFormText={'I have no account'}
-                onSwitch={'auth/sign-up'}
+                onSwitch={'/auth/sign-up'}
                 onSubmit={handleLogin}
       />
     </AuthPageLayout>

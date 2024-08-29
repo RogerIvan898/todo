@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as jwt from "jsonwebtoken";
 
-
 @Injectable()
 export class JwtTokenService {
   readonly JWT_SECRET = 'super-secret'

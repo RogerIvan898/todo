@@ -7,9 +7,12 @@ interface ITodoProps extends HTMLProps<HTMLDivElement>{
   content: string
 }
 
-const DecorativeContainer: FC<ITodoProps> = (
-  { content, symbol, key, className= '' }
-) => {
+const DecorativeContainer: FC<ITodoProps> = ({
+                                               content,
+                                               symbol,
+                                               key,
+                                               className= ''
+}) => {
   return (
     <Container key={key} className={`${style.container} ${className}`}>
       <span className={"material-symbols-outlined"}>{symbol}</span>
