@@ -5,10 +5,18 @@ import Container from "../../ui/container/index";
 import {useRouter} from "next/navigation";
 import style from './back-button.module.scss'
 
-const BackButton: FC<HTMLProps<HTMLDivElement>> = ({className= ''}) => {
+interface IBackButton extends HTMLProps<HTMLDivElement>{
+  path?: string
+}
+
+const BackButton: FC<IBackButton> = ({className= '', path}) => {
   const router = useRouter()
 
   const handleBack = () => {
+    if(path){
+      router.push(path)
+      return
+    }
     router.back()
   }
 

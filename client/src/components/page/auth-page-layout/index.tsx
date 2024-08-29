@@ -6,7 +6,7 @@ import BackButton from "../../cusom/back-button/index";
 const AuthPageLayout: FC = ({children}: ReactNode) => {
   return (
     <Layout>
-      <BackButton className={style.button}/>
+      <BackButton className={style.button} path={'/'}/>
       {children}
     </Layout>
   );
