@@ -10,13 +10,12 @@ interface ITodoProps extends HTMLProps<HTMLDivElement>{
 const DecorativeContainer: FC<ITodoProps> = ({
                                                content,
                                                symbol,
-                                               key,
-                                               className= ''
+                                               className = ''
 }) => {
   return (
-    <Container key={key} className={`${style.container} ${className}`}>
+    <Container className={`${style.container} ${className}`}>
       <span className={"material-symbols-outlined"}>{symbol}</span>
-      <p> {content}</p>
+      <p> {content} </p>
     </Container>
   );
 };

@@ -1,6 +1,15 @@
 'use client'
 
-import React, {createContext, FC, ReactNode, useContext, useState} from 'react';
+import React, {createContext, FC, ReactNode, useContext, useEffect, useState} from 'react';
+
+
+const parseJwt = (token: string) => {
+  const baseUrl = token.split('.')[1]
+  const base = baseUrl.replace(/-/g, '+').replace(/_/, '/')
+  const json = atob(base)
+
+  return JSON.parse(json)
+}
 
 interface IAuthContext{
   userId: string | null
@@ -20,6 +29,10 @@ const AuthProvider: FC<ReactNode> = ({children}) => {
   const logout = () => {
     setUserId(null)
   }
+
+  useEffect(() => {
+    if(userId) console.log(parseJwt(document.cookie))
+  })
 
   return (
     <AuthContext.Provider value={{ userId, login, logout }}>

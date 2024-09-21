@@ -1,7 +1,7 @@
 'use client'
 import style from './auth-form.module.scss'
 
-import {ChangeEvent, Dispatch, FC, SetStateAction, useState} from 'react';
+import {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState} from 'react';
 import Container from "../../ui/container/index";
 import Input from "../../ui/input/index";
 import Link from "next/link";
@@ -17,7 +17,7 @@ interface AuthFormProps {
 const AuthForm: FC<AuthFormProps> = ({
                                        title = 'Title',
                                        onSubmit,
-                                       showConfirmPassword,
+                                       showConfirmPassword = false,
                                        switchFormText = '',
                                        onSwitch= '',
 }) => {
@@ -43,6 +43,19 @@ const AuthForm: FC<AuthFormProps> = ({
 
     onSubmit(formData)
   }
+
+  useEffect(() => {
+    const handleSubmitKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        handleSubmit()
+      }
+    }
+
+    document.addEventListener('keypress', handleSubmitKeyPress)
+    return () => {
+      document.removeEventListener('keypress', handleSubmitKeyPress)
+    }
+  })
 
   return (
     <Container>

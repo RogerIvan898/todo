@@ -21,7 +21,10 @@ class Api {
   }
 
   public async loginUser(email: string, password: string){
-    const response = await fetch(`${this.API_ULR}/auth/login`, this.initPostOptions({ email, password }))
+    const response = await fetch(
+      `${this.API_ULR}/auth/login`,
+      this.initPostOptions({ email, password })
+    )
     const data = await response.json()
 
     const { token } = data
@@ -30,6 +33,7 @@ class Api {
       document.cookie = `jwt=${token}; max-age=${3600}; path=/`
       sessionStorage.setItem('token', token)
     }
+    console.log(document.cookie)
 
     return data
   }

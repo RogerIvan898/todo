@@ -19,7 +19,7 @@ const SignIn = () => {
 
     const response = await api.loginUser(email, password)
     if(response && response.token){
-      navigate.push('/')
+      navigate.replace('/todos')
     }
   }
 

@@ -17,19 +17,15 @@ const notes: INote[] = [{
   bookmark: false
 }]
 
+const initialFolders: Folder[] = new Array(3).fill(null).map(() => ({
+  id: uuidv4(),
+  title: 'some folder',
+  notes: []
+}))
+
 const Todos = () => {
-  const [todos, setTodods] = useState([])
+  const [folders, setFolder] = useState(initialFolders)
   const [chosenFolder, setChosenFolder] = useState(null)
-
-  useEffect(() => {
-    const initialTodos: Folder[] = new Array(3).fill(null).map(() => ({
-        id: uuidv4(),
-        title: 'some folder',
-        notes: []
-    }))
-
-    setTodods(initialTodos)
-  }, [])
 
   return (
     <div className={style.layout}>
@@ -37,14 +33,14 @@ const Todos = () => {
         <div className={style.folderContainer}>
           <p className={style.categoryTitle}>Folders</p>
           <div className={style.folders}>
-            { todos.map(({id, title}) =>
+            { folders.map(({id, title}) =>
               <DecorativeContainer
                 key={id}
                 symbol={'folder'}
                 content={title}
                 className={style.folder}
-              />)
-            }
+              />
+            )}
             <EditableContainer
               symbol={'folder'}
               content={'New'}

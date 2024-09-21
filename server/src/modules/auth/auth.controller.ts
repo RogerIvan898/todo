@@ -37,11 +37,14 @@ export class AuthController {
   async login(@Body() loginDto: RegisterDto, @Res() res: Response){
     try {
       const { token } = await this.authService.login(loginDto)
-      res.cookie('jwt', '', {
+
+      res.cookie('jwt', token, {
         httpOnly: true,
         maxAge: 3600000,
-        secure: false
+        secure: false,
+        sameSite: 'strict'
       })
+
       return res.json({token})
     }
      catch (error) {
