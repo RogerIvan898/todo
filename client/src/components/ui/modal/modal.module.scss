@@ -1,0 +1,22 @@
+.background{
+  top: 0;
+  position: absolute;
+  background-color: rgba(black, 0.4);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.container{
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68vw;
+  height: 78vh;
+  background: whitesmoke;
+  border-radius: 14px;
+}

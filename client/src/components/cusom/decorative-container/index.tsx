@@ -13,8 +13,8 @@ const DecorativeContainer: FC<ITodoProps> = ({
                                                className = ''
 }) => {
   return (
-    <Container className={`${style.container} ${className}`}>
-      <span className={"material-symbols-outlined"}>{symbol}</span>
+    <Container className={`${style.container} ${ className }`}>
+      <span className={"material-symbols-outlined"}>{ symbol }</span>
       <p> {content} </p>
     </Container>
   );

@@ -2,7 +2,6 @@
 
 import React, {createContext, FC, ReactNode, useContext, useEffect, useState} from 'react';
 
-
 const parseJwt = (token: string) => {
   const baseUrl = token.split('.')[1]
   const base = baseUrl.replace(/-/g, '+').replace(/_/, '/')

@@ -13,11 +13,7 @@ const BackButton: FC<IBackButton> = ({className= '', path}) => {
   const router = useRouter()
 
   const handleBack = () => {
-    if(path){
-      router.push(path)
-      return
-    }
-    router.back()
+    path ? router.push(path) : router.back()
   }
 
   return (

@@ -16,7 +16,6 @@ export async function middleware(req: NextRequest){
   if(await response.json()){
     return NextResponse.next()
   }
-
 }
 
 export const config = {

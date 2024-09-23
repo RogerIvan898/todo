@@ -33,7 +33,6 @@ class Api {
       document.cookie = `jwt=${token}; max-age=${3600}; path=/`
       sessionStorage.setItem('token', token)
     }
-    console.log(document.cookie)
 
     return data
   }
