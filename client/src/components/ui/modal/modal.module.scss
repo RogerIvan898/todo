@@ -1,3 +1,5 @@
+@use 'src/variables' as var;
+
 .background{
   top: 0;
   position: absolute;
@@ -18,5 +20,5 @@
   width: 68vw;
   height: 78vh;
   background: whitesmoke;
-  border-radius: 14px;
+  border-radius: var.$border-radius-container;
 }
