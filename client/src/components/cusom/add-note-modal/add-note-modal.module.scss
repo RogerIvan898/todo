@@ -1,0 +1,15 @@
+.contentMain{
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  gap: 8vh;
+
+  section{
+    display: flex;
+    flex-direction: column;
+
+    .textArea{
+      height: 38vh;
+    }
+  }
+}
