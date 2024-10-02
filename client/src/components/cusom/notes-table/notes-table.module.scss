@@ -1,7 +1,7 @@
 @mixin tablePropertyUnit{
   display: flex;
   align-items: center;
-  border-right: 1px solid darkgrey;
+  border-right: 1px solid $second-color;
   padding: 8px;
   color: gray;
 }
@@ -13,31 +13,23 @@
 
   .properties{
     display: flex;
-    border-top: 1.8px solid darkgrey;
-    border-bottom: 1.8px solid darkgrey;
+    border-top: 1.8px solid $second-color;
+    border-bottom: 1.8px solid $second-color;
     width: 100%;
 
-    .title{
-      @include tablePropertyUnit;
-      width: 24%;
-    }
-
-    .folder{
-      @include tablePropertyUnit;
-      width: 15%;
-    }
-
-    .created{
-      @include tablePropertyUnit;
-      width: 30%;
-    }
-
-    .type{
-      @include tablePropertyUnit;
-      width: 15%;
-    }
+    .title,
+    .folder,
+    .created,
+    .type,
     .bookmark {
       @include tablePropertyUnit;
+    }
+
+    .title { width: 24%; }
+    .folder { width: 15%; }
+    .created { width: 30%; }
+    .type { width: 15%; }
+    .bookmark {
       width: 15%;
       border-right: none;
     }
@@ -45,7 +37,7 @@
 
   .createNote{
     @include tablePropertyUnit;
-    border-bottom: 1.8px solid darkgrey;
+    border-bottom: 1.8px solid $second-color;
     border-right: none;
     cursor: pointer;
   }

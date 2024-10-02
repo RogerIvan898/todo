@@ -1,3 +1,9 @@
+.modalContent{
+  display: flex;
+  width: 100%;
+  gap: 14%;
+}
+
 .contentMain{
   display: flex;
   flex-direction: column;
@@ -10,6 +16,28 @@
 
     .textArea{
       height: 38vh;
+    }
+  }
+}
+
+.contentAdditional{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  section{
+    @include flex-center;
+    flex-direction: column;
+    gap: 14px;
+
+    .inputTag{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tagsContainer{
+      display: flex;
+      justify-content: flex-start;
     }
   }
 }

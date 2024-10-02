@@ -1,12 +1,11 @@
 .container{
+  @include flex-center;
+
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 40vw;
   height: 72vh;
-  padding: 3vw !important;
+  padding: 3vw;
   gap: 1vw;
 
   a{
@@ -26,10 +25,9 @@
 }
 
 .inputs{
-  display: flex;
+  @include flex-center;
+
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 1vw;
   width: 100%;
 }
@@ -44,23 +42,23 @@
 
 .confirmInput{
   input::-ms-reveal,
+
   input::-ms-clear {
     display: none;
   }
 }
 
 .submitButton{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
+
   cursor: pointer;
-  color: darkgrey;
+  color: $second-color;
   transition: scale 0.3s;
   width: 80%;
   margin-top: 1vw;
 
   &:hover{
     scale: 1.01;
-    color: grey;
+    color: $hover-color;
   }
 }

@@ -1,9 +1,7 @@
-@use 'src/variables' as var;
-
 .container{
-  border: 3px solid darkgrey;
-  background-color: white;
-  border-radius: var.$border-radius-container;
+  border: 3px solid $second-color;
+  background-color: $primary-color;
+  border-radius: $border-radius-container;
   padding: 8px;
 }
 

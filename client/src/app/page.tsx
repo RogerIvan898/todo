@@ -9,7 +9,7 @@ import AddNoteModal from "../components/cusom/add-note-modal/index";
 export default function Home() {
   return(
     <Layout className={style.layout}>
-      <AddNoteModal/>
+      {/*<AddNoteModal/>*/}
       <section className={style.infoContainer}>
         <h1>Get started</h1>
         <h2>

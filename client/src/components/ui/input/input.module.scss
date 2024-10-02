@@ -1,13 +1,11 @@
-@use 'src/variables.scss' as var;
-
 .inputContainer{
   display: flex;
   justify-content: space-around;
   min-width: 100px;
   min-height: 48px;
   border-radius: 48px;
-  background-color: white;
-  border: 3px solid darkgrey;
+  background-color: $primary-color;
+  border: 3px solid $second-color;
   transition: 0.2s all;
 
   &.focused{
@@ -17,8 +15,8 @@
 
 .input{
   outline: none;
-  width: 90%;
   border: none;
+  width: 90%;
   border-radius: 32px;
   padding: 0 8px;
 }
@@ -32,11 +30,11 @@
 
   span{
     font-size: 300%;
-    color: darkgrey;
+    color: $second-color;
     transition: 0.2s color;
 
     &.focused{
-      color: gray;
+      color: $hover-color;
     }
   }
 }

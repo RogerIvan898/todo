@@ -2,12 +2,12 @@
   display: flex;
   align-items: center;
   width: 20%;
-  border-right: 1px darkgrey solid;
+  border-right: 1px $second-color solid;
   padding-left: 16px;
 }
 
 .note{
-  border-bottom: 1.8px darkgrey solid;
+  border-bottom: 1.8px $second-color solid;
   width: 100%;
   height: 68px;
   display: flex;

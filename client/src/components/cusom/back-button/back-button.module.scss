@@ -1,11 +1,9 @@
 .container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   width: 12vw;
   height: 12vh;
   cursor: pointer;
-  color: darkgrey;
+  color: $second-color;
   transition: all 0.2s;
 
   span{
@@ -13,6 +11,6 @@
   }
 
   &:hover{
-    color: gray;
+    color: $hover-color;
   }
 }
