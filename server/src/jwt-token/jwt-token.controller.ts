@@ -6,7 +6,7 @@ export class JwtTokenController {
   constructor(private jwtTokenService: JwtTokenService) {}
 
   @Post('is-valid')
-  async validJwtToken(@Body() token){
-    return !!this.jwtTokenService.verifyToken(token.value)
+  async validJwtToken(@Body() token: string){
+    return !!this.jwtTokenService.verifyToken(token)
   }
 }

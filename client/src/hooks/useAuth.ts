@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {api} from "@/api";
 
-const useAuth = (apiFunction: (email: string, password: string) => Promise<boolean>) => {
+const useAuth = (apiFunction: (email: string, password: string) => Promise<unknown>) => {
   const navigate = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -11,17 +10,8 @@ const useAuth = (apiFunction: (email: string, password: string) => Promise<boole
     const password = formData.get('password') as string
     const confirmPassword = formData.get('confirmPassword') as string
 
-    if (!email || !password) {
-      alert('Both fields are required')
-      return
-    }
-
-    if (confirmPassword && password !== confirmPassword) {
-      alert('Passwords do not match')
-      return
-    }
-
     setIsLoading(true)
+
     try {
       const response = await apiFunction(email, password)
       if (response) {
@@ -29,6 +19,7 @@ const useAuth = (apiFunction: (email: string, password: string) => Promise<boole
       }
     } catch (e){
       alert('Operation failed. Please check your credentials.')
+      return
     } finally {
       setIsLoading(false)
     }

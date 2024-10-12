@@ -1,5 +1,4 @@
 'use client'
-import React from 'react';
 import AuthForm from "../../../components/cusom/auth-form/index";
 import {api} from "../../../api";
 import AuthPageLayout from "../../../components/page/auth-page-layout/index";

@@ -1,7 +1,12 @@
 'use client'
 import style from './auth-form.module.scss'
 
-import {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useRef, useState} from 'react';
+import {
+  ChangeEvent,
+  FC,
+  FormEvent,
+  useReducer,
+} from 'react';
 import Container from "../../ui/container/index";
 import Input from "../../ui/input/index";
 import Link from "next/link";
@@ -17,6 +22,19 @@ interface AuthFormProps {
   isLoading?: boolean
 }
 
+interface FormState{
+  email: string
+  password: string
+  confirmPassword?: string
+}
+
+const formReducer = (state: FormState, action: { field: keyof FormState, value: string }): FormState => {
+  return {
+    ...state,
+    [action.field]: action.value
+  }
+}
+
 const AuthForm: FC<AuthFormProps> = ({
                                        title = 'Title',
                                        onSubmit,
@@ -25,44 +43,52 @@ const AuthForm: FC<AuthFormProps> = ({
                                        onSwitch= '',
                                        isLoading = false
 }) => {
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-
-  const handleInput = (event: ChangeEvent<HTMLInputElement>, dispatch: Dispatch<SetStateAction<string>>) => {
-    const { value } = event.target
-
-    dispatch(value)
-  }
-
-  const handleSubmit = () => {
-    const formData = new FormData()
-
-    formData.append('email', email)
-    formData.append('password', password)
-
-    if(confirmPassword){
-      formData.append('confirmPassword', confirmPassword)
-    }
-
-    onSubmit(formData)
-  }
-
-  const handleEnterKey = useEnterKey(handleSubmit)
-
-  useEffect(() => {
-    const handleSubmitKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        handleSubmit()
-      }
-    }
-
-    document.addEventListener('keypress', handleSubmitKeyPress)
-    return () => {
-      document.removeEventListener('keypress', handleSubmitKeyPress)
-    }
+  const [formState, dispatch] = useReducer(formReducer, {
+    email: '',
+    password: '',
+    confirmPassword: ''
   })
+
+  const handleInputChange = (field: keyof FormState) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+
+    dispatch({ field, value: event.target.value })
+  }
+
+  const validateForm = (): boolean => {
+    const { email, password, confirmPassword } = formState
+
+    if (!email || !password) {
+      alert('Email and Password are required.')
+      return false
+    }
+    if (showConfirmPassword && password !== confirmPassword) {
+      alert('Passwords do not match.')
+      return false
+    }
+
+    return true
+  }
+
+  const handleSubmit = (e?: FormEvent) => {
+    if(e) {
+      e.preventDefault()
+    }
+
+    if(validateForm()) {
+      const formData = new FormData()
+      const {email, password, confirmPassword} = formState
+
+      formData.append('email', email)
+      formData.append('password', password)
+      if (confirmPassword) {
+        formData.append('confirmPassword', confirmPassword)
+      }
+
+      onSubmit(formData)
+    }
+  }
+  const handleEnterKey = useEnterKey(handleSubmit)
 
   return (
     <>
@@ -82,9 +108,10 @@ const AuthForm: FC<AuthFormProps> = ({
           </label>
           <Input
             id={'email'}
-            onChange={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setEmail))}
+            onChange={handleInputChange('email')}
             placeholder={'email'}
             type={'email'}
+            onKeyDown={handleEnterKey}
           />
         </div>
         <div className={style.inputContainer}>
@@ -95,7 +122,8 @@ const AuthForm: FC<AuthFormProps> = ({
             id={'password'}
             placeholder={'password'}
             type={'password'}
-            onChange={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setPassword))}
+            onChange={handleInputChange('password')}
+            onKeyDown={handleEnterKey}
           />
         </div>
          { showConfirmPassword &&
@@ -105,10 +133,11 @@ const AuthForm: FC<AuthFormProps> = ({
           </label>
           <Input
             className={style.confirmInput}
-            onChange={((event: ChangeEvent<HTMLInputElement>) => handleInput(event, setConfirmPassword))}
+            onChange={handleInputChange('confirmPassword')}
             id={'confirm'}
             placeholder={'confirm password'}
             type={'password'}
+            onKeyDown={handleEnterKey}
           />
         </div> }
       </div>
