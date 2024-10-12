@@ -15,12 +15,12 @@ class Api {
     return response.json()
   }
 
-  public async registerUser(email: string, password: string) {
+  public registerUser = async (email: string, password: string)=>  {
     const response = await fetch(`${this.API_ULR}/auth/register`, this.initPostOptions({ email, password }))
     return response.json()
   }
 
-  public async loginUser(email: string, password: string){
+  public loginUser = async (email: string, password: string) => {
     const response = await fetch(
       `${this.API_ULR}/auth/login`,
       this.initPostOptions({ email, password }, true)

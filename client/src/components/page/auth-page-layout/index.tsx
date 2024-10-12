@@ -4,14 +4,16 @@ import Layout from "../../ui/layout/index";
 import BackButton from "../../cusom/back-button/index";
 
 interface AuthPageLayoutProps{
-    children: ReactNode
+  children: ReactNode
 }
 
 const AuthPageLayout: FC<AuthPageLayoutProps> = ({children}) => {
   return (
     <Layout>
       <BackButton className={style.button} path={'/'}/>
-      {children}
+      <div className={style.formContainer}>
+        {children}
+      </div>
     </Layout>
   );
 };

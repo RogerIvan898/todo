@@ -5,6 +5,7 @@ import Container from "../components/ui/container/index";
 import Link from "next/link";
 import Modal from "../components/ui/modal/index";
 import AddNoteModal from "../components/cusom/add-note-modal/index";
+import LoadingSpinner from "@/components/cusom/loading-spinner";
 
 export default function Home() {
   console.log()

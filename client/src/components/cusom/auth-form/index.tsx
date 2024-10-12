@@ -6,6 +6,7 @@ import Container from "../../ui/container/index";
 import Input from "../../ui/input/index";
 import Link from "next/link";
 import {useEnterKey} from "@/hooks/useEnterKey";
+import LoadingSpinner from "@/components/cusom/loading-spinner";
 
 interface AuthFormProps {
   title: string
@@ -13,6 +14,7 @@ interface AuthFormProps {
   switchFormText: string
   onSwitch: string
   onSubmit: (formData: FormData) => void
+  isLoading?: boolean
 }
 
 const AuthForm: FC<AuthFormProps> = ({
@@ -21,11 +23,12 @@ const AuthForm: FC<AuthFormProps> = ({
                                        showConfirmPassword = false,
                                        switchFormText = '',
                                        onSwitch= '',
+                                       isLoading = false
 }) => {
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const formDataRef = useRef(new FormData)
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>, dispatch: Dispatch<SetStateAction<string>>) => {
     const { value } = event.target
@@ -62,6 +65,8 @@ const AuthForm: FC<AuthFormProps> = ({
   })
 
   return (
+    <>
+    {isLoading && <LoadingSpinner/>}
     <Container>
       <form className={style.container} onSubmit={(e) => {
         e.preventDefault()
@@ -113,6 +118,7 @@ const AuthForm: FC<AuthFormProps> = ({
       <Link href={onSwitch}>{ switchFormText }</Link>
       </form>
     </Container>
+    </>
   );
 };
 

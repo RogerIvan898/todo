@@ -3,28 +3,10 @@
 import AuthForm from "../../../components/cusom/auth-form/index";
 import {api} from "../../../api";
 import AuthPageLayout from "../../../components/page/auth-page-layout/index";
-import {useRouter} from "next/navigation";
+import useAuth from "@/hooks/useAuth";
 
 const SignIn = () => {
-  const navigate = useRouter()
-
-  const handleLogin = async (formData: FormData) => {
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-
-    if(!email || !password){
-      alert('Both fields are required')
-      return
-    }
-
-    const response = await api.loginUser(email, password)
-
-    if(response){
-      navigate.replace('/todos')
-    } else {
-      alert('Login failed. Check your credentials.')
-    }
-  }
+  const {handleAuth, isLoading} = useAuth(api.loginUser)
 
   return (
     <AuthPageLayout>
@@ -32,7 +14,8 @@ const SignIn = () => {
                 showConfirmPassword={false}
                 switchFormText={'I have no account'}
                 onSwitch={'/auth/sign-up'}
-                onSubmit={handleLogin}
+                onSubmit={handleAuth}
+                isLoading={isLoading}
       />
     </AuthPageLayout>
   );
