@@ -1,13 +1,19 @@
 import React, {FC, HTMLProps} from 'react';
 import style from './text-area.module.scss'
+import clsx from "clsx";
 
-const TextArea: FC<HTMLProps<HTMLTextAreaElement>> = ({id = '', className = ''}) => {
+interface TextAreaProps extends HTMLProps<HTMLTextAreaElement>{}
+
+const TextArea: FC<HTMLProps<HTMLTextAreaElement>> = ({id = '', className = '', ...props}) => {
   return (
     <div
-      className={` ${className} ${style.container}`}
+      className={clsx(style.container, className)}
       id={id}
     >
-      <textarea className={style.textArea}/>
+      <textarea
+          className={style.textArea}
+          {...props}
+      />
     </div>
   );
 };

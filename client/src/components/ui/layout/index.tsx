@@ -2,10 +2,16 @@
 
 import React, {FC, ReactNode} from 'react';
 import style from './layout.module.scss'
+import clsx from "clsx";
 
-const Layout: FC<ReactNode> = ({children, className = ''}) => {
+interface LayoutProps{
+  className?: string
+  children: ReactNode
+}
+
+const Layout: FC<LayoutProps> = ({children, className = ''}) => {
   return (
-    <div className={`${style.container} ${className}`}>
+    <div className={clsx(style.container, className)}>
       { children }
     </div>
   );

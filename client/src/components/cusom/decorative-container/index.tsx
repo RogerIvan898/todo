@@ -1,6 +1,7 @@
 import style from './decorative-container.module.scss'
 import React, {FC, HTMLProps} from 'react';
 import Container from "../../ui/container/index";
+import clsx from "clsx";
 
 interface ITodoProps extends HTMLProps<HTMLDivElement>{
   symbol: string
@@ -13,7 +14,7 @@ const DecorativeContainer: FC<ITodoProps> = ({
                                                className = ''
 }) => {
   return (
-    <Container className={`${style.container} ${ className }`}>
+    <Container className={clsx(style.container, className)}>
       <span className={"material-symbols-outlined"}>{ symbol }</span>
       <p> {content} </p>
     </Container>

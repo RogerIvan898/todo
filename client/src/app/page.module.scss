@@ -25,6 +25,7 @@
 .buttonContainer{
   @include flex-center;
   height: 100vh;
+  gap: 12vw;
 }
 
 .infoContainer{

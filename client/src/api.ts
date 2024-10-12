@@ -23,16 +23,14 @@ class Api {
   public async loginUser(email: string, password: string){
     const response = await fetch(
       `${this.API_ULR}/auth/login`,
-      this.initPostOptions({ email, password })
+      this.initPostOptions({ email, password }, true)
     )
-    const data = await response.json()
 
-    const { token } = data
-
-    if(token){
-      document.cookie = `jwt=${token}; max-age=${3600}; path=/`
-      sessionStorage.setItem('token', token)
+    if(!response.ok){
+      throw new Error('Login failed')
     }
+
+    const data = await response.json()
 
     return data
   }

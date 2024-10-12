@@ -7,9 +7,10 @@ import Modal from "../components/ui/modal/index";
 import AddNoteModal from "../components/cusom/add-note-modal/index";
 
 export default function Home() {
+  console.log()
+
   return(
     <Layout className={style.layout}>
-      {/*<AddNoteModal/>*/}
       <section className={style.infoContainer}>
         <h1>Get started</h1>
         <h2>

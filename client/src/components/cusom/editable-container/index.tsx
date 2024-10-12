@@ -4,8 +4,10 @@ import DecorativeContainer from "../decorative-container/index";
 
 import style from './editable-container.module.scss'
 
+import {useEnterKey} from "@/hooks/useEnterKey";
+
 interface EditableContainerProps{
-  symbol?: string
+  symbol: string
   content: string
   onSubmit?: () => void
   className: string
@@ -20,12 +22,10 @@ const EditableContainer: FC<EditableContainerProps> = ({
   const [isEditing, setIsEditing] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
-  const handleSubmit = (e: KeyboardEvent) => {
-    if(e.key === 'Enter') {
-      onSubmit?.()
-      setIsEditing(false)
-    }
-  }
+  const handleSubmit = useEnterKey(() => {
+    onSubmit?.()
+    setIsEditing(false)
+  })
 
   const handleButtonClick = () => {
     setIsEditing(true)
@@ -54,7 +54,11 @@ const EditableContainer: FC<EditableContainerProps> = ({
               autoFocus
             />
           </Container>) : (
-          <DecorativeContainer className={className} symbol={symbol} content={content}/>
+          <DecorativeContainer
+              className={className}
+              symbol={symbol}
+              content={content}
+          />
         )
       }
     </div>

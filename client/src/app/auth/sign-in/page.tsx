@@ -18,8 +18,11 @@ const SignIn = () => {
     }
 
     const response = await api.loginUser(email, password)
-    if(response && response.token){
+
+    if(response){
       navigate.replace('/todos')
+    } else {
+      alert('Login failed. Check your credentials.')
     }
   }
 

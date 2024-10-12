@@ -1,10 +1,11 @@
 'use client'
 import style from './auth-form.module.scss'
 
-import {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState} from 'react';
+import {ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useRef, useState} from 'react';
 import Container from "../../ui/container/index";
 import Input from "../../ui/input/index";
 import Link from "next/link";
+import {useEnterKey} from "@/hooks/useEnterKey";
 
 interface AuthFormProps {
   title: string
@@ -24,6 +25,7 @@ const AuthForm: FC<AuthFormProps> = ({
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const formDataRef = useRef(new FormData)
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>, dispatch: Dispatch<SetStateAction<string>>) => {
     const { value } = event.target
@@ -32,7 +34,7 @@ const AuthForm: FC<AuthFormProps> = ({
   }
 
   const handleSubmit = () => {
-    const formData = new FormData() as FormData
+    const formData = new FormData()
 
     formData.append('email', email)
     formData.append('password', password)
@@ -43,6 +45,8 @@ const AuthForm: FC<AuthFormProps> = ({
 
     onSubmit(formData)
   }
+
+  const handleEnterKey = useEnterKey(handleSubmit)
 
   useEffect(() => {
     const handleSubmitKeyPress = (e: KeyboardEvent) => {

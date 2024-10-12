@@ -3,7 +3,11 @@ import style from './auth-page-layout.module.scss'
 import Layout from "../../ui/layout/index";
 import BackButton from "../../cusom/back-button/index";
 
-const AuthPageLayout: FC = ({children}: ReactNode) => {
+interface AuthPageLayoutProps{
+    children: ReactNode
+}
+
+const AuthPageLayout: FC<AuthPageLayoutProps> = ({children}) => {
   return (
     <Layout>
       <BackButton className={style.button} path={'/'}/>
