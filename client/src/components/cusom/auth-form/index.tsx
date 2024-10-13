@@ -12,13 +12,14 @@ import Input from "../../ui/input/index";
 import Link from "next/link";
 import {useEnterKey} from "@/hooks/useEnterKey";
 import LoadingSpinner from "@/components/cusom/loading-spinner";
+import {IAuthData} from "@/types";
 
 interface AuthFormProps {
   title: string
   showConfirmPassword: boolean
   switchFormText: string
   onSwitch: string
-  onSubmit: (formData: FormData) => void
+  onSubmit: (formData: IAuthData) => Promise<void>
   isLoading?: boolean
 }
 
@@ -70,22 +71,15 @@ const AuthForm: FC<AuthFormProps> = ({
     return true
   }
 
-  const handleSubmit = (e?: FormEvent) => {
+  const handleSubmit = async (e?: FormEvent) => {
     if(e) {
       e.preventDefault()
     }
 
     if(validateForm()) {
-      const formData = new FormData()
-      const {email, password, confirmPassword} = formState
+      const {email, password} = formState
 
-      formData.append('email', email)
-      formData.append('password', password)
-      if (confirmPassword) {
-        formData.append('confirmPassword', confirmPassword)
-      }
-
-      onSubmit(formData)
+      await onSubmit({email, password})
     }
   }
   const handleEnterKey = useEnterKey(handleSubmit)

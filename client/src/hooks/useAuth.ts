@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import {IAuthData} from "@/types";
 
 const useAuth = (apiFunction: (email: string, password: string) => Promise<unknown>) => {
   const navigate = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleAuth = async (formData: FormData) => {
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-    const confirmPassword = formData.get('confirmPassword') as string
+  const handleAuth = async (formData: IAuthData) => {
+    const {email, password} = formData
 
     setIsLoading(true)
 
