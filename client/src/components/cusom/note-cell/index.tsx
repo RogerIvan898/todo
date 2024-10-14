@@ -13,23 +13,23 @@ interface INoteCellProps{
 const NoteCell: FC<INoteCellProps> = (props) => {
   return (
     <div className={style.note}>
-      <div className={style.title}>
+      <section className={style.title}>
         <span className="material-symbols-outlined">description</span>
         <p> {props.title}</p>
-      </div>
-      <div className={style.folder}>
+      </section>
+      <section className={style.folder}>
         <span className="material-symbols-outlined">folder</span>
         <p> {props.folder}</p>
-      </div>
-      <div className={style.created}>
+      </section>
+      <section className={style.created}>
         {props.created}
-      </div>
-      <div className={style.type}>
+      </section>
+      <section className={style.type}>
         {props.type}
-      </div>
-      <div className={style.bookmark}>
+      </section>
+      <section className={style.bookmark}>
         <input type={"checkbox"}/>
-      </div>
+      </section>
     </div>
   );
 };

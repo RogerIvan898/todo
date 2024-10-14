@@ -1,5 +1,4 @@
 'use client'
-
 import React, {createContext, FC, ReactNode, useContext, useState} from 'react';
 
 interface AuthProviderProps{

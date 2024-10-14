@@ -17,8 +17,9 @@ const BackButton: FC<IBackButton> = ({className= '', path}) => {
 
   return (
     <Container
-        className={clsx(style.container, className)}
-        onClick={handleBack}
+      as={'button'}
+      className={clsx(style.container, className)}
+      onClick={handleBack}
     >
       <span className={'material-symbols-outlined'}>Arrow_back</span>
     </Container>

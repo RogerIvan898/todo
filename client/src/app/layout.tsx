@@ -3,9 +3,7 @@ import "./globals.css";
 import {ReactNode, Suspense} from "react";
 import Head from "next/head";
 import {AuthProvider} from "../components/context/auth-context";
-import LoadingSpinner from "@/components/cusom/loading-spinner";
 import Loading from "@/app/Loading";
-import GlobalLoading from "@/components/cusom/global-loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +27,6 @@ export default function RootLayout({
         </AuthProvider>
       </Suspense>
       </body>
-
     </html>
   );
 }

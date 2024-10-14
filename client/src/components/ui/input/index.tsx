@@ -2,6 +2,7 @@
 import React, {FC, HTMLProps, useState} from 'react';
 import style from './input.module.scss'
 import clsx from "clsx";
+import {useEnterKey} from "@/hooks/useEnterKey";
 
 interface InputProps extends HTMLProps<HTMLInputElement>{
   onSubmit?: () => void
@@ -16,12 +17,7 @@ const Input: FC<InputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false)
 
-  const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === 'Enter' && onSubmit){
-      e.preventDefault()
-      onSubmit()
-    }
-  }
+  const handleSubmit = useEnterKey(onSubmit)
 
   return (
     <div id={id}
@@ -32,7 +28,7 @@ const Input: FC<InputProps> = ({
         className={style.input}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        onChange={handleSubmit}
+        onKeyDown={handleSubmit}
         {...props}
       />
       {/*<div className={style.submit}>*/}

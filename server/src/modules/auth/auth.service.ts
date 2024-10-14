@@ -3,7 +3,6 @@ import {RegisterDto} from "./dto/register.dto";
 import {UserService} from "../user/user.service";
 import {Request, Response} from "express";
 import {formatResponse, hashPassword, validatePassword} from "../../helpers";
-import * as jwt from 'jsonwebtoken'
 import {JwtTokenService} from "../../jwt-token/jwt-token.service";
 
 @Injectable()
