@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 interface ContainerProps<T extends ElementType>{
   as?: T,
-  className: string
+  className?: string
   children: ReactNode
 }
 

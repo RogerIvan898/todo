@@ -11,9 +11,9 @@ const AuthPageLayout: FC<AuthPageLayoutProps> = ({children}) => {
   return (
     <Layout>
       <BackButton className={style.button} path={'/'}/>
-      <div className={style.formContainer}>
+      <main className={style.formContainer}>
         {children}
-      </div>
+      </main>
     </Layout>
   );
 };

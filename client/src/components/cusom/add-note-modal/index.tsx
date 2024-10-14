@@ -51,7 +51,7 @@ const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
         <section>
           <div className={style.inputTag}>
             <label>Tags: </label>
-            <Input onChange={handleTagsEnterPress}/>
+            <Input onKeyDown={handleTagsEnterPress}/>
           </div>
           <div className={style.tagsContainer}>
             <Tag text={'Text'} color={'color'} border={false}/>

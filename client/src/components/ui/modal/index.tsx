@@ -11,7 +11,7 @@ const Modal: FC<ModalProps> = ({children, onClose}) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current?.contains(event.target as Node)) {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         onClose()
       }
     }
@@ -24,7 +24,6 @@ const Modal: FC<ModalProps> = ({children, onClose}) => {
 
     document.addEventListener('mousedown', handleClickOutside)
     document.addEventListener('keydown', handleEscapeKey)
-
     document.body.style.overflow = 'hidden'
 
     return () => {
