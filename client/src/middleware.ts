@@ -1,11 +1,13 @@
 import {NextRequest, NextResponse} from "next/server";
 
+const handleError = (req: NextRequest) => NextResponse.redirect(new URL('/auth/sign-in', req.url))
+
 export async function middleware(req: NextRequest){
   try {
     const token = req.cookies.get('jwt')
 
     if(!token){
-      return NextResponse.redirect(new URL('/auth/sign-in', req.url))
+      return handleError(req)
     }
 
     const response = await fetch('http://localhost:3001/api/jwt-token/is-valid', {
@@ -19,7 +21,7 @@ export async function middleware(req: NextRequest){
     }
   } catch (e){
     console.log('Error validate token', e)
-    return NextResponse.redirect(new URL('/auth/sign-in', req.url))
+    return handleError(req)
   }
 }
 

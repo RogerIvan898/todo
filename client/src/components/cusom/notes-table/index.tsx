@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, memo, useState} from 'react';
 import style from './notes-table.module.scss'
 import NoteCell from "../note-cell/index";
 import {INote} from "../../../types";
@@ -21,6 +21,19 @@ const tableUnitsProperties: UnitProperty[] = [
   {title: 'bookmark', symbol: 'check_circle'}
 ]
 
+const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
+
+const PropertyHeaderUnit = memo(({title, symbol}: UnitProperty) => (
+  <div key={title} className={style[title]}>
+    <span className="material-symbols-outlined">
+      { symbol }
+    </span>
+    <p>
+      {capitalize(title)}
+    </p>
+  </div>
+))
+
 const NotesTable: FC<INotesTableProps> = ({notes}) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
@@ -30,40 +43,24 @@ const NotesTable: FC<INotesTableProps> = ({notes}) => {
 
   return (
     <>
-    {isModalVisible && <AddNoteModal onClose={closeModal}/>}
+      {isModalVisible && <AddNoteModal onClose={closeModal}/>}
 
     <div className={style.container}>
       <div className={style.properties}>
-          {tableUnitsProperties.map(({title, symbol}) =>
-            <div
-                key={title}
-                className={style[title]}
-            >
-              <span className="material-symbols-outlined">
-                {symbol}
-              </span>
-              <p>
-                {title.charAt(0).toLocaleUpperCase() + title.slice(1)}
-              </p>
-            </div>
+        {tableUnitsProperties.map(({title, symbol}) =>
+          <PropertyHeaderUnit symbol={symbol} title={title} key={title}/>
           )}
       </div>
 
       <div className={style.table}>
-        {notes.map(({title, folder, created, type, bookmark}) => <NoteCell
-                                  title={title}
-                                  folder={folder}
-                                  created={created}
-                                  type={type}
-                                  bookmark={bookmark}
-            />
-        )}
-        <div
+        { notes.map(note => <NoteCell {...note}/> )}
+
+        <button
           className={style.createNote}
           onClick={() => setIsModalVisible(true)}
         >
           New
-        </div>
+        </button>
       </div>
     </div>
      </>

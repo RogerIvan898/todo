@@ -16,12 +16,16 @@ export default function Home() {
       </main>
       <nav className={style.buttonContainer}>
         <Link href={'/auth/sign-up'}>
-          <Container className={style.navigateButton}>
+          <Container
+            as={'button'}
+            className={style.navigateButton}>
             Sign up
           </Container>
         </Link>
         <Link href={'/auth/sign-in'}>
-          <Container className={style.navigateButton}>
+          <Container
+            as={'button'}
+            className={style.navigateButton}>
             Sign in
           </Container>
         </Link>
