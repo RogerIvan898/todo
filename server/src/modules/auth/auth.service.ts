@@ -20,8 +20,9 @@ export class AuthService {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED)
     }
 
-    const decoded = this.jwtTokenService.verifyToken(token)
+    const decoded = this.jwtTokenService.verifyAccessJwtToken(token)
     const userId = decoded.id
+
     const user = await this.userService.findOneById(userId)
 
     if (!user) {
@@ -57,11 +58,13 @@ export class AuthService {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
 
-    const token = this.jwtTokenService.generateJwtToken(user.id.toString(), user.email)
+    const accessToken = this.jwtTokenService.generateAccessJwtToken(user.id.toString(), user.email)
+    const refreshToken = this.jwtTokenService.generateRefreshJwtToken(user.id.toString(), user.email)
 
     return {
       ...user,
-      token
+      accessToken,
+      refreshToken
     }
   }
 }

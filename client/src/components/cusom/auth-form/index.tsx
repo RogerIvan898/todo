@@ -78,7 +78,6 @@ const AuthForm: FC<AuthFormProps> = ({
 
     if(validateForm()) {
       const {email, password} = formState
-
       await onSubmit({email, password})
     }
   }
@@ -88,10 +87,9 @@ const AuthForm: FC<AuthFormProps> = ({
     <>
     {isLoading && <LoadingSpinner/>}
     <Container>
-      <form className={style.container} onSubmit={(e) => {
-        e.preventDefault()
-        handleSubmit()
-      }}>
+      <form
+        className={style.container}
+        onSubmit={handleSubmit}>
       <p className={style.title}>
         { title }
       </p>

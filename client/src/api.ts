@@ -1,5 +1,5 @@
 class Api {
-  readonly API_ULR = 'http://localhost:3001/api'
+  readonly API_URL = 'http://localhost:3001/api'
 
   private initPostOptions(body: Record<string, unknown>, cookie = false): RequestInit {
     return {
@@ -10,8 +10,13 @@ class Api {
     }
   }
 
-  private async fetchJson(url: string, options: RequestInit){
+  private async fetchJson<T>(url: string, options: RequestInit): Promise<T>{
     const response = await fetch(url, options)
+
+    if(response.status === 401){
+      await this.refreshToken()
+      return this.fetchJson<T>(url, options)
+    }
 
     if(!response.ok){
       const errorData = await response.json()
@@ -22,18 +27,26 @@ class Api {
   }
 
   public async isUserExists(email: string): Promise<Boolean> {
-    return this.fetchJson(`${this.API_ULR}/user/isExists`, this.initPostOptions({ email }))
+    return this.fetchJson(`${this.API_URL}/user/isExists`, this.initPostOptions({ email }))
   }
 
   public registerUser = async (email: string, password: string)=>  {
-    return this.fetchJson(`${this.API_ULR}/auth/register`, this.initPostOptions({ email, password }))
+    return this.fetchJson(`${this.API_URL}/auth/register`, this.initPostOptions({ email, password }))
   }
 
   public loginUser = async (email: string, password: string) => {
     return this.fetchJson(
-      `${this.API_ULR}/auth/login`,
+      `${this.API_URL}/auth/login`,
       this.initPostOptions({ email, password }, true)
     )
+  }
+
+  public async refreshToken() {
+    const response = await fetch(`${this.API_URL}/jwt-token/refresh`, {
+      method: 'POST',
+      credentials: 'include'
+    })
+    return response.json()
   }
 }
 
