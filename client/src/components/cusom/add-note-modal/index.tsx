@@ -5,6 +5,7 @@ import Input from "../../ui/input/index";
 import TextArea from "../../ui/text-area/index";
 import Tag from "../../ui/tag/index";
 import {useEnterKey} from "@/hooks/useEnterKey";
+import Container from "@/components/ui/container";
 
 interface AddNoteModalProps{
   onClose: () => void
@@ -22,6 +23,7 @@ const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
       setTagInput('')
     }
   }
+
   const handleTagsEnterPress = useEnterKey(handleAddTag)
 
   return (
@@ -51,11 +53,14 @@ const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
         <section>
           <div className={style.inputTag}>
             <label>Tags: </label>
-            <Input onKeyDown={handleTagsEnterPress}/>
+            <Input value={tagInput}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setTagInput(e.target.value)}
+              onKeyDown={handleTagsEnterPress}/>
           </div>
-          <div className={style.tagsContainer}>
+          <Container className={style.tagsContainer}>
+            {tags.map(tag => <Tag text={tag} color={''} border={false}/>)}
             <Tag text={'Text'} color={'color'} border={false}/>
-          </div>
+          </Container>
         </section>
       </div>
     </form>
