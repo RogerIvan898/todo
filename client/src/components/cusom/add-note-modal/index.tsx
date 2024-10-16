@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import style from './add-note-modal.module.scss'
 import Modal from "../../ui/modal/index";
 import Input from "../../ui/input/index";
@@ -12,17 +12,21 @@ interface AddNoteModalProps{
   onClose: () => void
 }
 
+interface ITag{
+  text: string
+  color: string
+}
+
 const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [tagInput, setTagInput] = useState('')
-  const [tags, setTags] = useState<string[]>([])
-  const [isColorPickerVisible, setColorPickerVisible] = useState(false)
+  const [tags, setTags] = useState<ITag[]>([])
   const [tagColor, setTagColor] = useState('linear-gradient(45deg, #ff7b7b, #ffd700)')
 
   const handleAddTag = () => {
     if(tagInput.trim()){
-      setTags([...tags, tagInput.trim()])
+      setTags([...tags, {text: tagInput, color: tagColor}])
       setTagInput('')
     }
   }
@@ -64,12 +68,12 @@ const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
                      onChange={(e: ChangeEvent<HTMLInputElement>) => setTagInput(e.target.value)}
                      onKeyDown={handleTagsEnterPress}
               />
-                <ColorPicker/>
+                <ColorPicker onChange={(color: string) => setTagColor(color)}/>
               </div>
             </div>
           </div>
           <Container className={style.tagsContainer}>
-            {tags.map(tag => <Tag text={tag} color={''} border={false}/>)}
+            {tags.map(tag => <Tag color={tag.color} text={tag.text}/>)}
             <Tag text={'Text'} color={'color'} border={false}/>
           </Container>
         </section>
