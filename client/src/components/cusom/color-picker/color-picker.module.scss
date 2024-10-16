@@ -1,0 +1,25 @@
+.container{
+  position: relative;
+
+  .setColor{
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .colorPickerWrapper{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: $primary-color;
+    padding: 12px;
+    border-radius: $border-radius-container;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+  }
+}

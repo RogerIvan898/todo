@@ -5,6 +5,20 @@
   gap: 14%;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .contentMain{
   display: flex;
   flex-direction: column;
@@ -31,6 +45,13 @@
     @include flex-center;
     flex-direction: column;
     gap: 20px;
+
+    .inputContainer{
+      @include flex-center;
+
+      position: relative;
+      gap: 1vw;
+    }
 
     .inputTag{
       display: flex;

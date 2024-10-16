@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect, useRef, useState} from 'react';
 import style from './add-note-modal.module.scss'
 import Modal from "../../ui/modal/index";
 import Input from "../../ui/input/index";
@@ -6,6 +6,7 @@ import TextArea from "../../ui/text-area/index";
 import Tag from "../../ui/tag/index";
 import {useEnterKey} from "@/hooks/useEnterKey";
 import Container from "@/components/ui/container";
+import ColorPicker from "@/components/cusom/color-picker";
 
 interface AddNoteModalProps{
   onClose: () => void
@@ -16,6 +17,8 @@ const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
   const [description, setDescription] = useState('')
   const [tagInput, setTagInput] = useState('')
   const [tags, setTags] = useState<string[]>([])
+  const [isColorPickerVisible, setColorPickerVisible] = useState(false)
+  const [tagColor, setTagColor] = useState('linear-gradient(45deg, #ff7b7b, #ffd700)')
 
   const handleAddTag = () => {
     if(tagInput.trim()){
@@ -39,6 +42,7 @@ const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
               required
           />
         </section>
+
         <section>
           <label htmlFor={'description'}>Description: </label>
           <TextArea
@@ -49,13 +53,20 @@ const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
           />
         </section>
       </div>
+
       <div className={style.contentAdditional}>
         <section>
-          <div className={style.inputTag}>
-            <label>Tags: </label>
-            <Input value={tagInput}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setTagInput(e.target.value)}
-              onKeyDown={handleTagsEnterPress}/>
+          <div className={style.inputContainer}>
+            <div className={style.inputTag}>
+              <label>Tags: </label>
+              <div className={style.inputContainer}>
+              <Input value={tagInput}
+                     onChange={(e: ChangeEvent<HTMLInputElement>) => setTagInput(e.target.value)}
+                     onKeyDown={handleTagsEnterPress}
+              />
+                <ColorPicker/>
+              </div>
+            </div>
           </div>
           <Container className={style.tagsContainer}>
             {tags.map(tag => <Tag text={tag} color={''} border={false}/>)}
