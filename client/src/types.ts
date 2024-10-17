@@ -25,3 +25,9 @@ export interface IAuthData{
   password: string
   confirmPassword?: string
 }
+
+export interface INoteTag{
+  id: string
+  content: string
+  color: string
+}

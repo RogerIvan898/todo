@@ -2,15 +2,15 @@ import React, {FC} from 'react';
 import style from './tag.module.scss'
 
 interface TagProps{
-  text: string,
+  content: string,
   color: string
   border?: boolean
 }
 
-const Tag: FC<TagProps> = ({text, color, border}) => {
+const Tag: FC<TagProps> = ({content, color, border}) => {
   return (
     <span className={style.container} style={{backgroundColor: color}}>
-      { text }
+      { content }
     </span>
   );
 };

@@ -16,8 +16,8 @@ const Modal: FC<ModalProps> = ({children, onClose}) => {
       }
     }
 
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if(event.key === 'Escape'){
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if(e.key === 'Escape'){
         onClose()
       }
     }

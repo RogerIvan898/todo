@@ -1,7 +1,7 @@
 'use client'
 import style from './todos.module.scss'
 
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {v4 as uuidv4} from 'uuid'
 import DecorativeContainer from "../../components/cusom/decorative-container/index";
 import NotesTable from "../../components/cusom/notes-table/index";

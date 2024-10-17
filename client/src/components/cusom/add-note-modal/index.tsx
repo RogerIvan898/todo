@@ -7,26 +7,25 @@ import Tag from "../../ui/tag/index";
 import {useEnterKey} from "@/hooks/useEnterKey";
 import Container from "@/components/ui/container";
 import ColorPicker from "@/components/cusom/color-picker";
+import {v4 as uuidv4} from 'uuid'
+import {INoteTag} from "@/types";
 
 interface AddNoteModalProps{
   onClose: () => void
 }
 
-interface ITag{
-  text: string
-  color: string
-}
+const gradientColor = 'linear-gradient(45deg, #ff7b7b, #ffd700)'
 
 const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [tagInput, setTagInput] = useState('')
-  const [tags, setTags] = useState<ITag[]>([])
-  const [tagColor, setTagColor] = useState('linear-gradient(45deg, #ff7b7b, #ffd700)')
+  const [tags, setTags] = useState<INoteTag[]>([])
+  const [tagColor, setTagColor] = useState(gradientColor)
 
   const handleAddTag = () => {
     if(tagInput.trim()){
-      setTags([...tags, {text: tagInput, color: tagColor}])
+      setTags([...tags, {id: uuidv4(), content: tagInput, color: gradientColor ? 'grey' : tagColor}])
       setTagInput('')
     }
   }
@@ -73,8 +72,8 @@ const AddNoteModal: FC<AddNoteModalProps> = ({onClose}) => {
             </div>
           </div>
           <Container className={style.tagsContainer}>
-            {tags.map(tag => <Tag color={tag.color} text={tag.text}/>)}
-            <Tag text={'Text'} color={'color'} border={false}/>
+            {tags.map(tag => <Tag color={tag.color} content={tag.content} key={tag.id}/>)}
+            <Tag content={'Text'} color={'color'} border={false}/>
           </Container>
         </section>
       </div>
